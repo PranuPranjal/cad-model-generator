@@ -1,20 +1,59 @@
-import { useState } from 'react';
 
-// Define a type for the successful API response
+import { useState, useEffect } from 'react';
+
+// type for successful API response
 interface GenerationResult {
   step: string;
   stl: string;
 }
 
+// states for the generation process
+type GenerationStatus = 'idle' | 'pending' | 'processing' | 'complete' | 'error';
+
 function App() {
   const [prompt, setPrompt] = useState<string>('a sphere with a diameter of 40mm at the origin');
   const [result, setResult] = useState<GenerationResult | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [status, setStatus] = useState<GenerationStatus>('idle');
   const [error, setError] = useState<string | null>(null);
+
+  // handles polling
+  useEffect(() => {
+    // only poll if status is 'pending' or 'processing'
+    if (status !== 'pending' && status !== 'processing') {
+      return;
+    }
+
+    const intervalId = setInterval(async () => {
+      try {
+        const response = await fetch('/api/generation-status');
+        const data = await response.json();
+
+        if (data.status === 'complete') {
+          setStatus('complete');
+          setResult({ stl: '/output.stl', step: '/output.step' });
+          clearInterval(intervalId); // Stop polling
+        } else if (data.status === 'error') {
+          setStatus('error');
+          setError(data.error_message || 'An unknown error occurred during generation.');
+          clearInterval(intervalId); // Stop polling
+        } else {
+          // Keep polling if status is 'pending' or 'processing'
+          setStatus(data.status);
+        }
+      } catch (err) {
+        setStatus('error');
+        setError('Failed to get generation status.');
+        clearInterval(intervalId); // Stop polling on fetch failure
+      }
+    }, 2000); // Poll every 2 seconds
+
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [status]); // This effect re-runs whenever the 'status' changes
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setIsLoading(true);
+    setStatus('pending'); // Kick off the process
     setError(null);
     setResult(null);
 
@@ -27,18 +66,18 @@ function App() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || 'An unknown error occurred.');
+        throw new Error(errorData.detail || 'Failed to start generation.');
       }
-
-      const data: GenerationResult = await response.json();
-      setResult(data);
+      
+      // The polling `useEffect` will take over from here
 
     } catch (err: any) {
+      setStatus('error');
       setError(err.message);
-    } finally {
-      setIsLoading(false);
     }
   };
+  
+  const isLoading = status === 'pending' || status === 'processing';
 
   return (
     <div className="bg-gray-50 min-h-screen flex items-center justify-center font-sans">
@@ -58,25 +97,25 @@ function App() {
             className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:bg-gray-100 transition"
           />
           <button type="submit" disabled={isLoading} className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition">
-            {isLoading ? 'Generating...' : 'Generate CAD'}
+            {isLoading ? `Processing... (${status})` : 'Generate CAD'}
           </button>
         </form>
 
-        {error && (
+        {status === 'error' && error && (
           <div className="mt-8 p-4 rounded-lg text-left bg-red-100 border border-red-400 text-red-700">
             <strong>Error:</strong> {error}
           </div>
         )}
 
-        {result && (
+        {status === 'complete' && result && (
           <div className="mt-8 p-6 rounded-lg text-left bg-green-100 border border-green-400">
             <h3 className="text-lg font-semibold text-green-800">Generation Complete!</h3>
             <p className="text-green-700">Your model files are ready for download.</p>
             <div className="mt-4 flex gap-4">
-              <a href={result.step} className="flex-1 text-center bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 no-underline transition">
+              <a href={result.step} download className="flex-1 text-center bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 no-underline transition">
                 Download .STEP
               </a>
-              <a href={result.stl} className="flex-1 text-center bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 no-underline transition">
+              <a href={result.stl} download className="flex-1 text-center bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 no-underline transition">
                 Download .STL
               </a>
             </div>

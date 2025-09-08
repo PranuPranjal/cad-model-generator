@@ -1,3 +1,5 @@
+# File: /backend/app.py
+
 from fastapi import FastAPI, File, HTTPException, BackgroundTasks
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,8 +22,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-OUTPUT_FILE = "output.stl"
+# --- START CHANGES ---
+OUTPUT_STL_FILE = "output.stl"
+OUTPUT_STEP_FILE = "output.step" # ADDED: Define STEP file name
 GENERATED_MODEL_FILE = "generated_model.py"
+# --- END CHANGES ---
+
 EXECUTION_DELAY = 2
 STL_FETCH_DELAY = 3
 
@@ -61,8 +67,26 @@ def execute_generated_code():
         if not code.strip():
             raise Exception("Generated code is empty")
 
-        exec_globals = {"cq": cq, "exporters": exporters}
-        exec(code, exec_globals)
+        # --- START CHANGES ---
+        # The generated code should create a CadQuery object, often named 'result'
+        exec_globals = {"cq": cq}
+        local_scope = {}
+        exec(code, exec_globals, local_scope)
+
+        # Find the CadQuery object in the local scope
+        cad_object = None
+        for val in local_scope.values():
+            if isinstance(val, cq.Workplane):
+                cad_object = val
+                break
+        
+        if not cad_object:
+            raise Exception("No CadQuery Workplane object found in the generated code.")
+
+        # Export both STL and STEP files
+        exporters.export(cad_object, OUTPUT_STL_FILE)
+        exporters.export(cad_object, OUTPUT_STEP_FILE)
+        # --- END CHANGES ---
 
         with status_lock:
             stl_generation_status["last_generated"] = time.time()
@@ -73,6 +97,7 @@ def execute_generated_code():
             stl_generation_status["in_progress"] = False
 
 class OllamaClient:
+    # ... (no changes needed in this class)
     def __init__(self, url, model_name):
         self.url = url
         self.model_name = model_name
@@ -81,8 +106,7 @@ class OllamaClient:
         payload = {
             "model": self.model_name,
             "messages": messages,
-            "max_tokens": max_tokens,
-            "temperature": temperature
+            "stream": True, # Ensure stream is True for iter_lines
         }
         try:
             headers = {"Content-Type": "application/json"}
@@ -106,7 +130,6 @@ class OllamaClient:
 
 ollama_client = OllamaClient(OLLAMA_URL, MODEL_NAME)
 
-# chat with the model to generate the cad file
 @app.post("/api/generate")
 async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
     prompt = request.prompt
@@ -119,14 +142,14 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
     messages = [
         {"role": "system", "content": (
             "You are an expert CadQuery assistant. "
-                    "Always generate ONLY valid Python code that creates a shape and saves it to 'output.stl'. "
-                    "Do not include any explanations or markdown fences. "
-                    "Use 'from cadquery import exporters' and call exporters.export(obj, 'output.stl').\n\n"
-                    "Example format:\n"
-                    "import cadquery as cq\n"
-                    "from cadquery import exporters\n\n"
-                    "#....Your CadQuery code here....\n"
-                    "exporters.export(result, 'output.stl')")},
+            "Always generate ONLY valid Python code that creates a shape. "
+            "Do not include any explanations or markdown fences. "
+            "The final CadQuery object must be assigned to a variable, for example 'result = cq.Workplane...'. "
+            "Do NOT include any export code yourself.\n\n"
+            "Example format:\n"
+            "import cadquery as cq\n\n"
+            "result = cq.Workplane('XY').box(10, 20, 30)"
+        )},
         {"role": "user", "content": f"Create: {prompt}\nGenerate ONLY Python code:"}
     ]
 
@@ -144,55 +167,53 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
         background_tasks.add_task(execute_generated_code)
 
         return JSONResponse({
-            "message": "Model generated and execution started",
-            "status": "code_written",
-            "next_step": f"STL will be generated after {EXECUTION_DELAY}s delay"
+            "message": "Model generation started.",
+            "status": "pending",
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# display the .stl file
+# --- START CHANGES ---
+# IMPORTANT: The model generation from your LLM might not be perfect.
+# We're updating the prompt to make it more reliable and removing the
+# `exporters` part from the prompt, as we now handle that in our Python code.
+
 @app.get("/output.stl")
 async def get_stl():
-    with status_lock:
-        in_progress = stl_generation_status["in_progress"]
-        error = stl_generation_status["error"]
-        last_generated = stl_generation_status["last_generated"]
+    if not os.path.exists(OUTPUT_STL_FILE):
+        raise HTTPException(status_code=404, detail="STL file not found.")
+    return FileResponse(OUTPUT_STL_FILE, media_type='application/octet-stream', filename='output.stl')
 
-    if not os.path.exists(OUTPUT_FILE):
-        raise HTTPException(status_code=404, detail="STL not found")
+# ADDED: New endpoint to serve the STEP file
+@app.get("/output.step")
+async def get_step():
+    if not os.path.exists(OUTPUT_STEP_FILE):
+        raise HTTPException(status_code=404, detail="STEP file not found.")
+    return FileResponse(OUTPUT_STEP_FILE, media_type='application/octet-stream', filename='output.step')
+# --- END CHANGES ---
 
-    if in_progress:
-        raise HTTPException(status_code=423, detail="Generation in progress")
-
-    if error:
-        raise HTTPException(status_code=500, detail=error)
-
-    if last_generated and (time.time() - last_generated < STL_FETCH_DELAY):
-        remaining = STL_FETCH_DELAY - (time.time() - last_generated)
-        raise HTTPException(status_code=425, detail=f"STL not ready yet. Remaining seconds: {round(remaining,1)}")
-
-    return FileResponse(OUTPUT_FILE)
 
 @app.get("/api/generation-status")
 async def generation_status():
     with status_lock:
-        in_progress = stl_generation_status["in_progress"]
-        error = stl_generation_status["error"]
-        last_generated = stl_generation_status["last_generated"]
-    stl_exists = os.path.exists(OUTPUT_FILE)
-    file_size = os.path.getsize(OUTPUT_FILE) if stl_exists else 0
+        status = stl_generation_status.copy() # Make a copy to work with
+    
+    stl_exists = os.path.exists(OUTPUT_STL_FILE)
+    
+    # Determine the overall status
+    final_status = "pending"
+    if status["in_progress"]:
+        final_status = "processing"
+    elif status["error"]:
+        final_status = "error"
+    elif stl_exists and status["last_generated"] is not None:
+        final_status = "complete"
+
     return {
-        "stl_exists": stl_exists,
-        "file_size": file_size,
-        "in_progress": in_progress,
-        "last_generated": last_generated,
-        "error": error,
-        "delays": {
-            "execution_delay": EXECUTION_DELAY,
-            "fetch_delay": STL_FETCH_DELAY
-        }
+        "status": final_status,
+        "error_message": status["error"],
     }
 
+
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=5000, reload=True)
+    uvicorn.run("app:main", host="0.0.0.0", port=5000, reload=True)
