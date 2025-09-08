@@ -1,0 +1,6 @@
+cadquery
+fastapi
+uvicorn
+pydantic
+requests
+ollama
