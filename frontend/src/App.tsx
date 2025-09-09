@@ -7,6 +7,7 @@ interface GenerationResult {
   stl: string;
 }
 
+
 // states for the generation process
 type GenerationStatus = 'idle' | 'pending' | 'processing' | 'complete' | 'error';
 
@@ -31,7 +32,10 @@ function App() {
 
         if (data.status === 'complete') {
           setStatus('complete');
-          setResult({ stl: '/output.stl', step: '/output.step' });
+          setResult({
+            stl: data.stl_filename ? `/output.stl?filename=${encodeURIComponent(data.stl_filename)}` : '',
+            step: data.step_filename ? `/output.step?filename=${encodeURIComponent(data.step_filename)}` : '',
+          });
           clearInterval(intervalId); // Stop polling
         } else if (data.status === 'error') {
           setStatus('error');
