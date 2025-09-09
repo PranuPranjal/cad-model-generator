@@ -23,9 +23,11 @@ app.add_middleware(
 )
 
 # --- START CHANGES ---
-OUTPUT_STL_FILE = "output.stl"
-OUTPUT_STEP_FILE = "output.step" # ADDED: Define STEP file name
 GENERATED_MODEL_FILE = "generated_model.py"
+
+# Helper to generate unique filenames
+def get_unique_filename(ext: str) -> str:
+    return f"output_{int(time.time() * 1000)}.{ext}"
 # --- END CHANGES ---
 
 EXECUTION_DELAY = 2
@@ -83,10 +85,19 @@ def execute_generated_code():
         if not cad_object:
             raise Exception("No CadQuery Workplane object found in the generated code.")
 
-        # Export both STL and STEP files
-        exporters.export(cad_object, OUTPUT_STL_FILE)
-        exporters.export(cad_object, OUTPUT_STEP_FILE)
+
+        # Export both STL and STEP files with unique names
+        stl_filename = get_unique_filename("stl")
+        step_filename = get_unique_filename("step")
+        exporters.export(cad_object, stl_filename)
+        exporters.export(cad_object, step_filename)
         # --- END CHANGES ---
+
+        with status_lock:
+            stl_generation_status["last_generated"] = time.time()
+            stl_generation_status["in_progress"] = False
+            stl_generation_status["stl_filename"] = stl_filename
+            stl_generation_status["step_filename"] = step_filename
 
         with status_lock:
             stl_generation_status["last_generated"] = time.time()
@@ -142,13 +153,14 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
     messages = [
         {"role": "system", "content": (
             "You are an expert CadQuery assistant. "
-            "Always generate ONLY valid Python code that creates a shape. "
+            "Always generate ONLY valid Python code that creates a shape and saves it to 'output.stl'. "
             "Do not include any explanations or markdown fences. "
-            "The final CadQuery object must be assigned to a variable, for example 'result = cq.Workplane...'. "
-            "Do NOT include any export code yourself.\n\n"
+            "Use 'from cadquery import exporters' and call exporters.export(obj, 'output.stl').\n\n"
             "Example format:\n"
-            "import cadquery as cq\n\n"
-            "result = cq.Workplane('XY').box(10, 20, 30)"
+            "import cadquery as cq\n"
+            "from cadquery import exporters\n\n"
+            "#....Your CadQuery code here....\n"
+            "exporters.export(result, 'output.stl')"
         )},
         {"role": "user", "content": f"Create: {prompt}\nGenerate ONLY Python code:"}
     ]
@@ -173,45 +185,50 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# --- START CHANGES ---
-# IMPORTANT: The model generation from your LLM might not be perfect.
-# We're updating the prompt to make it more reliable and removing the
-# `exporters` part from the prompt, as we now handle that in our Python code.
 
+
+from fastapi import Query
+
+# Serve STL by filename
 @app.get("/output.stl")
-async def get_stl():
-    if not os.path.exists(OUTPUT_STL_FILE):
+async def get_stl(filename: str = Query(...)):
+    backend_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(backend_dir, filename)
+    if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="STL file not found.")
-    return FileResponse(OUTPUT_STL_FILE, media_type='application/octet-stream', filename='output.stl')
+    return FileResponse(file_path, media_type='application/octet-stream', filename=os.path.basename(filename))
 
-# ADDED: New endpoint to serve the STEP file
+# Serve STEP by filename
 @app.get("/output.step")
-async def get_step():
-    if not os.path.exists(OUTPUT_STEP_FILE):
+async def get_step(filename: str = Query(...)):
+    backend_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(backend_dir, filename)
+    if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="STEP file not found.")
-    return FileResponse(OUTPUT_STEP_FILE, media_type='application/octet-stream', filename='output.step')
+    return FileResponse(file_path, media_type='application/octet-stream', filename=os.path.basename(filename))
 # --- END CHANGES ---
+
 
 
 @app.get("/api/generation-status")
 async def generation_status():
     with status_lock:
         status = stl_generation_status.copy() # Make a copy to work with
-    
-    stl_exists = os.path.exists(OUTPUT_STL_FILE)
-    
+
     # Determine the overall status
     final_status = "pending"
     if status["in_progress"]:
         final_status = "processing"
     elif status["error"]:
         final_status = "error"
-    elif stl_exists and status["last_generated"] is not None:
+    elif status.get("stl_filename") and status["last_generated"] is not None:
         final_status = "complete"
 
     return {
         "status": final_status,
         "error_message": status["error"],
+        "stl_filename": status.get("stl_filename"),
+        "step_filename": status.get("step_filename"),
     }
 
 
