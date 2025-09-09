@@ -12,6 +12,14 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/output.stl': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+      '/output.step': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
     },
   },
 })

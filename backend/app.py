@@ -22,11 +22,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- START CHANGES ---
 OUTPUT_STL_FILE = "output.stl"
-OUTPUT_STEP_FILE = "output.step" # ADDED: Define STEP file name
+OUTPUT_STEP_FILE = "output.step"
 GENERATED_MODEL_FILE = "generated_model.py"
-# --- END CHANGES ---
 
 EXECUTION_DELAY = 2
 STL_FETCH_DELAY = 3
@@ -67,13 +65,10 @@ def execute_generated_code():
         if not code.strip():
             raise Exception("Generated code is empty")
 
-        # --- START CHANGES ---
-        # The generated code should create a CadQuery object, often named 'result'
         exec_globals = {"cq": cq}
         local_scope = {}
         exec(code, exec_globals, local_scope)
 
-        # Find the CadQuery object in the local scope
         cad_object = None
         for val in local_scope.values():
             if isinstance(val, cq.Workplane):
@@ -83,10 +78,8 @@ def execute_generated_code():
         if not cad_object:
             raise Exception("No CadQuery Workplane object found in the generated code.")
 
-        # Export both STL and STEP files
         exporters.export(cad_object, OUTPUT_STL_FILE)
         exporters.export(cad_object, OUTPUT_STEP_FILE)
-        # --- END CHANGES ---
 
         with status_lock:
             stl_generation_status["last_generated"] = time.time()
@@ -97,7 +90,6 @@ def execute_generated_code():
             stl_generation_status["in_progress"] = False
 
 class OllamaClient:
-    # ... (no changes needed in this class)
     def __init__(self, url, model_name):
         self.url = url
         self.model_name = model_name
@@ -173,10 +165,6 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# --- START CHANGES ---
-# IMPORTANT: The model generation from your LLM might not be perfect.
-# We're updating the prompt to make it more reliable and removing the
-# `exporters` part from the prompt, as we now handle that in our Python code.
 
 @app.get("/output.stl")
 async def get_stl():
@@ -184,13 +172,11 @@ async def get_stl():
         raise HTTPException(status_code=404, detail="STL file not found.")
     return FileResponse(OUTPUT_STL_FILE, media_type='application/octet-stream', filename='output.stl')
 
-# ADDED: New endpoint to serve the STEP file
 @app.get("/output.step")
 async def get_step():
     if not os.path.exists(OUTPUT_STEP_FILE):
         raise HTTPException(status_code=404, detail="STEP file not found.")
     return FileResponse(OUTPUT_STEP_FILE, media_type='application/octet-stream', filename='output.step')
-# --- END CHANGES ---
 
 
 @app.get("/api/generation-status")
@@ -216,4 +202,4 @@ async def generation_status():
 
 
 if __name__ == "__main__":
-    uvicorn.run("app:main", host="0.0.0.0", port=5000, reload=True)
+    uvicorn.run("app:app", host="0.0.0.0", port=5000, reload=True)
