@@ -15,7 +15,9 @@ function Model({ url }: { url: string }) {
 
 export default function STLViewer({ url }: { url: string }) {
   return (
-    <Canvas camera={{ position: [0, 0, 100], fov: 50 }}>
+    <Canvas 
+    style={{ width: '800px', height: '600px', backgroundColor: '#43a9e8', borderRadius: '10px' }}
+    camera={{ position: [0, 0, 100], fov: 50 }}>
       <ambientLight />
       <Suspense fallback={null}>
         <Stage>
