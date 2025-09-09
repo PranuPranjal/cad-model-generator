@@ -23,8 +23,8 @@ app.add_middleware(
 )
 
 # --- START CHANGES ---
-OUTPUT_STL_FILE = "output.stl"
-OUTPUT_STEP_FILE = "output.step"
+# OUTPUT_STL_FILE = "output.stl"
+# OUTPUT_STEP_FILE = "output.step"
 GENERATED_MODEL_FILE = "generated_model.py"
 
 # Helper to generate unique filenames
@@ -84,8 +84,8 @@ def execute_generated_code():
         if not cad_object:
             raise Exception("No CadQuery Workplane object found in the generated code.")
 
-        exporters.export(cad_object, OUTPUT_STL_FILE)
-        exporters.export(cad_object, OUTPUT_STEP_FILE)
+        # exporters.export(cad_object, OUTPUT_STL_FILE)
+        # exporters.export(cad_object, OUTPUT_STEP_FILE)
 
         # Export both STL and STEP files with unique names
         stl_filename = get_unique_filename("stl")

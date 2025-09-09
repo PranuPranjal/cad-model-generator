@@ -165,9 +165,7 @@ function App() {
                 <h3 className="text-lg font-semibold text-gray-800 mb-3 text-center">3D Preview</h3>
                 <div className="flex justify-center">
                   <STLViewer 
-                    stlUrl={result.stl} 
-                    width={480} 
-                    height={360} 
+                    url={result.stl} 
                   />
                 </div>
                 <p className="text-sm text-gray-600 text-center mt-2">
