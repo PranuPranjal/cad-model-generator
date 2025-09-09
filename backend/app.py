@@ -206,7 +206,6 @@ async def get_step(filename: str = Query(...)):
     file_path = os.path.join(backend_dir, filename)
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="STEP file not found.")
-    return FileResponse(OUTPUT_STEP_FILE, media_type='application/octet-stream', filename='output.step')
     return FileResponse(file_path, media_type='application/octet-stream', filename=os.path.basename(filename))
 # --- END CHANGES ---
 
