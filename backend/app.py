@@ -23,6 +23,8 @@ app.add_middleware(
 )
 
 # --- START CHANGES ---
+OUTPUT_STL_FILE = "output.stl"
+OUTPUT_STEP_FILE = "output.step"
 GENERATED_MODEL_FILE = "generated_model.py"
 
 # Helper to generate unique filenames
@@ -69,13 +71,10 @@ def execute_generated_code():
         if not code.strip():
             raise Exception("Generated code is empty")
 
-        # --- START CHANGES ---
-        # The generated code should create a CadQuery object, often named 'result'
         exec_globals = {"cq": cq}
         local_scope = {}
         exec(code, exec_globals, local_scope)
 
-        # Find the CadQuery object in the local scope
         cad_object = None
         for val in local_scope.values():
             if isinstance(val, cq.Workplane):
@@ -85,6 +84,8 @@ def execute_generated_code():
         if not cad_object:
             raise Exception("No CadQuery Workplane object found in the generated code.")
 
+        exporters.export(cad_object, OUTPUT_STL_FILE)
+        exporters.export(cad_object, OUTPUT_STEP_FILE)
 
         # Export both STL and STEP files with unique names
         stl_filename = get_unique_filename("stl")
@@ -108,7 +109,6 @@ def execute_generated_code():
             stl_generation_status["in_progress"] = False
 
 class OllamaClient:
-    # ... (no changes needed in this class)
     def __init__(self, url, model_name):
         self.url = url
         self.model_name = model_name
@@ -190,6 +190,7 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
 from fastapi import Query
 
 # Serve STL by filename
+
 @app.get("/output.stl")
 async def get_stl(filename: str = Query(...)):
     backend_dir = os.path.dirname(os.path.abspath(__file__))
@@ -233,4 +234,4 @@ async def generation_status():
 
 
 if __name__ == "__main__":
-    uvicorn.run("app:main", host="0.0.0.0", port=5000, reload=True)
+    uvicorn.run("app:app", host="0.0.0.0", port=5000, reload=True)
