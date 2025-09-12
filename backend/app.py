@@ -1,6 +1,4 @@
-# File: /backend/app.py
-
-from fastapi import FastAPI, File, HTTPException, BackgroundTasks
+from fastapi import FastAPI, HTTPException, BackgroundTasks, Query
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -22,102 +20,119 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- START CHANGES ---
-# OUTPUT_STL_FILE = "output.stl"
-# OUTPUT_STEP_FILE = "output.step"
-GENERATED_MODEL_FILE = "generated_model.py"
+# --- Global Constants & State ---
 
-# Helper to generate unique filenames
-def get_unique_filename(ext: str) -> str:
-    return f"output_{int(time.time() * 1000)}.{ext}"
-# --- END CHANGES ---
+# IMPORTANT FIX: Changed the generated file to a .txt extension.
+# The `uvicorn` server with `reload=True` watches for changes in .py files.
+# By writing our generated code to a .py file, we were causing the server
+# to restart, which killed the background task before it could create the
+# STL/STEP files. Using .txt avoids this problem entirely.
+GENERATED_MODEL_FILE = "generated_model_script.txt"
 
-EXECUTION_DELAY = 2
-STL_FETCH_DELAY = 3
+OLLAMA_URL = "http://localhost:11434/api/chat"
+MODEL_NAME = "deepseek-coder:6.7b"
 
-stl_generation_status = {
-    "last_generated": None,
+generation_status = {
     "in_progress": False,
-    "error": None
+    "error": None,
+    "stl_filename": None,
+    "step_filename": None,
+    "last_generated": None,
 }
 status_lock = threading.Lock()
 
-OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "codegemma"
 
 class GenerateRequest(BaseModel):
     prompt: str
 
+
+def get_unique_filename(ext: str) -> str:
+    """Creates a unique filename based on the current timestamp to avoid conflicts."""
+    return f"output_{int(time.time() * 1000)}.{ext}"
+
 def clean_code(code: str) -> str:
-    lines = code.strip().splitlines()
-    if lines and lines[0].startswith("```"):
-        lines = lines[1:]
-    if lines and lines[-1].startswith("```"):
-        lines = lines[:-1]
-    return "\n".join(lines).strip()
+    """
+    Extracts Python code from a string that might include markdown fences.
+    This acts as a safeguard in case the model doesn't follow instructions perfectly.
+    """
+    py_marker = '```python'
+    if py_marker in code:
+        start_index = code.find(py_marker) + len(py_marker)
+        end_index = code.find('```', start_index)
+        if end_index != -1:
+            return code[start_index:end_index].strip()
+
+    marker = '```'
+    if marker in code:
+        start_index = code.find(marker) + len(marker)
+        end_index = code.find(marker, start_index)
+        if end_index != -1:
+            return code[start_index:end_index].strip()
+
+    return code.strip()
+
 
 def execute_generated_code():
-    global stl_generation_status
+    """
+    Executes the generated CadQuery script in a controlled environment
+    and handles exporting the resulting 3D model.
+    This function is designed to be run in a background thread.
+    """
+    global generation_status
     with status_lock:
-        stl_generation_status["in_progress"] = True
-        stl_generation_status["error"] = None
+        generation_status["in_progress"] = True
+        generation_status["error"] = None
     try:
         if not os.path.exists(GENERATED_MODEL_FILE):
-            raise Exception("Generated model file not found")
+            raise Exception(f"Generated script file not found: {GENERATED_MODEL_FILE}")
 
         with open(GENERATED_MODEL_FILE, "r") as f:
             code = f.read()
 
         if not code.strip():
-            raise Exception("Generated code is empty")
+            raise Exception("Generated code is empty.")
 
+        # Execute the script in a restricted scope
         exec_globals = {"cq": cq}
         local_scope = {}
         exec(code, exec_globals, local_scope)
 
-        cad_object = None
-        for val in local_scope.values():
-            if isinstance(val, cq.Workplane):
-                cad_object = val
-                break
+        cad_object = local_scope.get("result")
         
-        if not cad_object:
-            raise Exception("No CadQuery Workplane object found in the generated code.")
+        if not cad_object or not isinstance(cad_object, (cq.Workplane, cq.Shape)):
+            raise Exception("A CadQuery object (Workplane or Shape) named 'result' was not found in the generated code.")
 
-        # exporters.export(cad_object, OUTPUT_STL_FILE)
-        # exporters.export(cad_object, OUTPUT_STEP_FILE)
-
-        # Export both STL and STEP files with unique names
+        # Generate unique filenames and export both STL and STEP files
         stl_filename = get_unique_filename("stl")
         step_filename = get_unique_filename("step")
+        
         exporters.export(cad_object, stl_filename)
         exporters.export(cad_object, step_filename)
-        # --- END CHANGES ---
 
+        # Update status upon successful completion
         with status_lock:
-            stl_generation_status["last_generated"] = time.time()
-            stl_generation_status["in_progress"] = False
-            stl_generation_status["stl_filename"] = stl_filename
-            stl_generation_status["step_filename"] = step_filename
+            generation_status["last_generated"] = time.time()
+            generation_status["in_progress"] = False
+            generation_status["stl_filename"] = stl_filename
+            generation_status["step_filename"] = step_filename
 
-        with status_lock:
-            stl_generation_status["last_generated"] = time.time()
-            stl_generation_status["in_progress"] = False
     except Exception as e:
         with status_lock:
-            stl_generation_status["error"] = str(e)
-            stl_generation_status["in_progress"] = False
+            generation_status["error"] = str(e)
+            generation_status["in_progress"] = False
 
 class OllamaClient:
+    """A simple client to interact with the Ollama API."""
     def __init__(self, url, model_name):
         self.url = url
         self.model_name = model_name
 
-    def chat(self, messages, max_tokens=1024, temperature=0.1):
+    def chat(self, messages):
+        """Sends a chat request to the Ollama API and returns the full response."""
         payload = {
             "model": self.model_name,
             "messages": messages,
-            "stream": True, # Ensure stream is True for iter_lines
+            "stream": True, # Use streaming to read the complete response
         }
         try:
             headers = {"Content-Type": "application/json"}
@@ -136,33 +151,40 @@ class OllamaClient:
         except requests.exceptions.RequestException as e:
             raise Exception(f"Ollama request failed: {str(e)}")
         except ValueError as e:
-            raise Exception(f"JSON decode error: {str(e)}")
+            raise Exception(f"JSON decode error while reading Ollama response: {str(e)}")
 
 
 ollama_client = OllamaClient(OLLAMA_URL, MODEL_NAME)
 
+
+# --- API Endpoints ---
 @app.post("/api/generate")
 async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
     prompt = request.prompt
 
     with status_lock:
-        stl_generation_status["last_generated"] = None
-        stl_generation_status["in_progress"] = False
-        stl_generation_status["error"] = None
+        generation_status["in_progress"] = True
+        generation_status["error"] = None
+        generation_status["stl_filename"] = None
+        generation_status["step_filename"] = None
+        generation_status["last_generated"] = None
 
+    # System prompt to guide the LLM's output
     messages = [
         {"role": "system", "content": (
-            "You are an expert CadQuery assistant. "
-            "Always generate ONLY valid Python code that creates a shape and saves it to 'output.stl'. "
-            "Do not include any explanations or markdown fences. "
-            "Use 'from cadquery import exporters' and call exporters.export(obj, 'output.stl').\n\n"
-            "Example format:\n"
-            "import cadquery as cq\n"
-            "from cadquery import exporters\n\n"
-            "#....Your CadQuery code here....\n"
-            "exporters.export(result, 'output.stl')"
+            "You are a CadQuery script generator. Your only purpose is to translate a user's text description into a valid CadQuery Python script.\n\n"
+            "**Follow these rules STRICTLY:**\n"
+            "1. **Code ONLY:** Your entire output must be ONLY Python code. Do not include any other text, explanations, or markdown fences (like ```python).\n"
+            "2. **Imports:** The script must begin with `import cadquery as cq`.\n"
+            "3. **Result Variable:** You MUST create the final CadQuery 3D object and assign it to a variable named exactly `result`.\n"
+            "4. **No Exporting:** Do NOT include any lines for exporting the file (e.g., `exporters.export(...)`). This is handled separately by the backend.\n\n"
+            "**Example:**\n"
+            "User Prompt: a sphere with a diameter of 40mm at the origin\n\n"
+            "Your Output:\n"
+            "import cadquery as cq\n\n"
+            "result = cq.Workplane(\"XY\").sphere(20)"
         )},
-        {"role": "user", "content": f"Create: {prompt}\nGenerate ONLY Python code:"}
+        {"role": "user", "content": f"Create the following model: {prompt}"}
     ]
 
     try:
@@ -183,40 +205,18 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
             "status": "pending",
         })
     except Exception as e:
+        with status_lock:
+            generation_status["error"] = str(e)
+            generation_status["in_progress"] = False
         raise HTTPException(status_code=500, detail=str(e))
 
 
-
-from fastapi import Query
-
-# Serve STL by filename
-
-@app.get("/output.stl")
-async def get_stl(filename: str = Query(...)):
-    backend_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(backend_dir, filename)
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="STL file not found.")
-    return FileResponse(file_path, media_type='application/octet-stream', filename=os.path.basename(filename))
-
-# Serve STEP by filename
-@app.get("/output.step")
-async def get_step(filename: str = Query(...)):
-    backend_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(backend_dir, filename)
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="STEP file not found.")
-    return FileResponse(file_path, media_type='application/octet-stream', filename=os.path.basename(filename))
-# --- END CHANGES ---
-
-
-
 @app.get("/api/generation-status")
-async def generation_status():
+async def get_generation_status():
+    """Returns the current status of the 3D model generation process."""
     with status_lock:
-        status = stl_generation_status.copy() # Make a copy to work with
+        status = generation_status.copy()
 
-    # Determine the overall status
     final_status = "pending"
     if status["in_progress"]:
         final_status = "processing"
@@ -232,6 +232,24 @@ async def generation_status():
         "step_filename": status.get("step_filename"),
     }
 
+@app.get("/output.stl")
+async def get_stl(filename: str = Query(...)):
+    """Serves a specific STL file by its unique name."""
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail=f"STL file not found: {filename}")
+    return FileResponse(file_path, media_type='model/stl', filename=os.path.basename(filename))
 
+
+@app.get("/output.step")
+async def get_step(filename: str = Query(...)):
+    """Serves a specific STEP file by its unique name."""
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail=f"STEP file not found: {filename}")
+    return FileResponse(file_path, media_type='application/step', filename=os.path.basename(filename))
+
+
+# --- Main Execution ---
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=5000, reload=True)
