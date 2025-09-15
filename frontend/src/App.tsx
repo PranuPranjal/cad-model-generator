@@ -12,7 +12,7 @@ interface GenerationResult {
 type GenerationStatus = 'idle' | 'pending' | 'processing' | 'complete' | 'error';
 
 function App() {
-  const [prompt, setPrompt] = useState<string>('a sphere with a diameter of 40mm at the origin');
+  const [prompt, setPrompt] = useState<string>('generate cadquery script for a sphere with a diameter of 40mm at the origin');
   const [result, setResult] = useState<GenerationResult | null>(null);
   const [status, setStatus] = useState<GenerationStatus>('idle');
   const [error, setError] = useState<string | null>(null);
