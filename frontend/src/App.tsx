@@ -13,6 +13,7 @@ type GenerationStatus = 'idle' | 'pending' | 'processing' | 'complete' | 'error'
 
 function App() {
   const [prompt, setPrompt] = useState<string>('generate cadquery script for a sphere with a diameter of 40mm at the origin');
+  const [promptHistory, setPromptHistory] = useState<string[]>([]);
   const [result, setResult] = useState<GenerationResult | null>(null);
   const [status, setStatus] = useState<GenerationStatus>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -62,6 +63,10 @@ function App() {
     setError(null);
     setResult(null);
 
+    // Add current prompt to history
+    setPromptHistory((prev) => [...prev, prompt]);
+    setPrompt(''); // Clear textbox for next query
+
     try {
       const response = await fetch('/api/generate', {
         method: 'POST',
@@ -73,9 +78,7 @@ function App() {
         const errorData = await response.json();
         throw new Error(errorData.detail || 'Failed to start generation.');
       }
-     
       // The polling `useEffect` will take over from here
-
     } catch (err: any) {
       setStatus('error');
       setError(err.message);
@@ -98,6 +101,18 @@ function App() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column - Input and Controls */}
           <div className="space-y-6">
+            {/* Chat History */}
+            <div className="bg-white border border-gray-200 rounded-lg p-4 mb-2 max-h-60 overflow-y-auto shadow-sm">
+              {promptHistory.length === 0 ? (
+                <p className="text-gray-400"></p>
+              ) : (
+                <ul className="space-y-2">
+                  {promptHistory.map((p, idx) => (
+                    <li key={idx} className="bg-gray-100 rounded px-3 py-2 text-gray-800">{p}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <textarea
                 value={prompt}
