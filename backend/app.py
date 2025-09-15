@@ -30,7 +30,7 @@ app.add_middleware(
 GENERATED_MODEL_FILE = "generated_model_script.txt"
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "codegemma"
+MODEL_NAME = "gemma3n:e4b"
 
 generation_status = {
     "in_progress": False,
@@ -179,7 +179,7 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
             "3. **Result Variable:** You MUST create the final CadQuery 3D object and assign it to a variable named exactly `result`.\n"
             "4. **No Exporting:** Do NOT include any lines for exporting the file (e.g., `exporters.export(...)`). This is handled separately by the backend.\n\n"
             "**Example:**\n"
-            "User Prompt: a sphere with a diameter of 40mm at the origin\n\n"
+            "User Prompt: generate cadquery script for a sphere with a diameter of 40mm at the origin\n\n"
             "Your Output:\n"
             "import cadquery as cq\n\n"
             "result = cq.Workplane(\"XY\").sphere(20)"
