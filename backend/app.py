@@ -30,7 +30,7 @@ app.add_middleware(
 GENERATED_MODEL_FILE = "generated_model_script.txt"
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "deepseek-coder:6.7b"
+MODEL_NAME = "codegemma"
 
 generation_status = {
     "in_progress": False,
