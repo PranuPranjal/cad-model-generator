@@ -30,7 +30,7 @@ app.add_middleware(
 GENERATED_MODEL_FILE = "generated_model_script.txt"
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "gemma3n:e4b"
+MODEL_NAME = "hf.co/Pranu999/cad-gen:Q4_K_M"
 
 generation_status = {
     "in_progress": False,
