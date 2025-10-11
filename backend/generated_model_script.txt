@@ -1,2 +1,2 @@
-import cadquery as cq
-result = cq.Workplane("XY").cylinder(r=12.5, h=60)
+from cq_warehouse import fastener
+result = fastener.button_head_screw(size="M18-2.5", length=3, fastener_type="iso7380_1", hand="right", simple=True)
