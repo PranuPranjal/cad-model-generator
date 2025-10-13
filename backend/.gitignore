@@ -5,6 +5,7 @@ __pycache__/
 # Virtual Environment
 venv/
 .venv/
+backend/venv/
 
 # IDE specific
 .vscode/
@@ -12,3 +13,16 @@ venv/
 
 # Other
 .env
+# Python virtual environment
+venv/
+*.venv/
+env/
+.env
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Other common files
+.vscode/
+*.log
