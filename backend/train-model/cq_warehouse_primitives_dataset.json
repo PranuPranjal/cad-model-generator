@@ -1,0 +1,267 @@
+[
+  {
+    "prompt": "Create a Box with length 100.0, width 50.0, and height 30.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").box(100.0, 50.0, 30.0)"
+  },
+  {
+    "prompt": "Generate a Cylinder with radius 20.0 and height 60.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").cylinder(60.0, 20.0)"
+  },
+  {
+    "prompt": "I need a Sphere with radius 15.0.",
+    "completion": "import cadquery as cq\nresult = cq.Sphere(15.0)"
+  },
+  {
+    "prompt": "Can you make a Cone with base radius 25.0, top radius 5.0, and height 40.0?",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").cone(40.0, 25.0, 5.0)"
+  },
+  {
+    "prompt": "Design a Torus with major radius 30.0 and minor radius 10.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").torus(30.0, 10.0)"
+  },
+  {
+    "prompt": "Create a Wedge with base width 50.0, height 20.0, and depth 30.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").wedge(50.0, 20.0, 30.0)"
+  },
+  {
+    "prompt": "Generate a Prism with a hexagonal base of side 10.0 and height 50.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").polygon(6, 10.0).extrude(50.0)"
+  },
+  {
+    "prompt": "I want a Pyramid with square base side 40.0 and height 35.0.",
+    "completion": "import cadquery as cq\nbottom = cq.Workplane(\"XY\").rect(40.0, 40.0)\ntop = cq.Workplane(\"XY\").point().translate((0, 0, 35.0))\nresult = bottom.loft(top)"
+  },
+  {
+    "prompt": "Design a Helix with pitch 5.0, radius 8.0, and height 100.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").helix(pitch=5.0, height=100.0, radius=8.0)"
+  },
+  {
+    "prompt": "Create a Spline curve with control points [(0,0), (10,20), (20,10), (30,30)].",
+    "completion": "import cadquery as cq\npoints = [(0,0), (10,20), (20,10), (30,30)]\nresult = cq.Workplane(\"XY\").spline(points)"
+  },
+  {
+    "prompt": "Generate a regular Pentagon with side length 15.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").polygon(5, 15.0)"
+  },
+  {
+    "prompt": "I need an I-beam profile with web height 100.0, flange width 50.0, and thickness 5.0.",
+    "completion": "import cadquery as cq\nflange = cq.Workplane(\"XY\").rect(50.0, 5.0).extrude(5.0)\nweb = cq.Workplane(\"XY\").rect(5.0, 50.0).extrude(100.0)\nbottom_flange = flange\ntop_flange = flange.translate((0, 0, 95.0))\nresult = web.union(bottom_flange).union(top_flange)"
+  },
+  {
+    "prompt": "Design a Pan Head Screw with M6 thread, length 20.0.",
+    "completion": "import cadquery as cq\nhead = cq.Workplane(\"XY\").cylinder(3.0, 5.0)\nshank = cq.Workplane(\"XY\").cylinder(20.0, 3.0).translate((0, 0, 3.0))\nresult = head.union(shank)"
+  },
+  {
+    "prompt": "Create a Hex Bolt with M8 thread, length 30.0.",
+    "completion": "import cadquery as cq\nhead = cq.Workplane(\"XY\").hexagon(8.0).extrude(5.0)\nshank = cq.Workplane(\"XY\").cylinder(30.0, 4.0).translate((0, 0, 5.0))\nresult = head.union(shank)"
+  },
+  {
+    "prompt": "Generate a Hex Nut for M10 thread.",
+    "completion": "import cadquery as cq\nnut = cq.Workplane(\"XY\").hexagon(17.0).extrude(8.0)\nhole = cq.Workplane(\"XY\").cylinder(8.0, 5.0)\nresult = nut.cut(hole)"
+  },
+  {
+    "prompt": "I want a Flat Washer with inner diameter 8.0 and outer diameter 16.0, thickness 2.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").circle(8.0).circle(16.0).extrude(2.0)"
+  },
+  {
+    "prompt": "Design a Pop Rivet with diameter 4.0 and length 10.0.",
+    "completion": "import cadquery as cq\nshank = cq.Workplane(\"XY\").cylinder(10.0, 2.0)\nhead = cq.Workplane(\"XY\").cone(5.0, 4.0, 0.0).translate((0, 0, 5.0))\nresult = shank.union(head)"
+  },
+  {
+    "prompt": "Create a Dowel Pin with diameter 6.0 and length 20.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").cylinder(20.0, 3.0)"
+  },
+  {
+    "prompt": "Generate a Spur Gear with 20 teeth, module 1.0, width 10.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.0, teeth_number=20, width=10.0)"
+  },
+  {
+    "prompt": "I need a Ball Bearing with inner diameter 10.0, outer diameter 30.0, width 9.0.",
+    "completion": "import cadquery as cq\ninner = cq.Workplane(\"XY\").cylinder(9.0, 5.0)\nouter = cq.Workplane(\"XY\").cylinder(9.0, 15.0)\nresult = outer.cut(inner)"
+  },
+  {
+    "prompt": "Design a Solid Shaft with diameter 20.0 and length 100.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").cylinder(100.0, 10.0)"
+  },
+  {
+    "prompt": "Create a Rigid Coupling with bore diameter 12.0 and length 40.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").cylinder(40.0, 20.0).cut(cq.Workplane(\"XY\").cylinder(40.0, 6.0))"
+  },
+  {
+    "prompt": "Generate a V-Belt Pulley with diameter 50.0, width 25.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").circle(25.0).extrude(25.0)"
+  },
+  {
+    "prompt": "I want a Linear Extrude of a rectangle 40x20 along 50.0 height.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").rect(40.0, 20.0).extrude(50.0)"
+  },
+  {
+    "prompt": "Design a Fillet of radius 5.0 on a box 50x30x20.",
+    "completion": "import cadquery as cq\nbox = cq.Workplane(\"XY\").box(50.0, 30.0, 20.0)\nresult = box.edges().fillet(5.0)"
+  },
+  {
+    "prompt": "Create a Chamfer of 3.0 on edges of a cylinder radius 10.0 height 40.0.",
+    "completion": "import cadquery as cq\ncyl = cq.Workplane(\"XY\").cylinder(40.0, 10.0)\nresult = cyl.edges().chamfer(3.0)"
+  },
+  {
+    "prompt": "Generate a Through Hole of diameter 8.0 in a plate 100x100x5.",
+    "completion": "import cadquery as cq\nplate = cq.Workplane(\"XY\").rect(100.0, 100.0).extrude(5.0)\nresult = plate.cut(cq.Workplane(\"XY\").circle(4.0).extrude(5.0))"
+  },
+  {
+    "prompt": "I need a Circular Pattern of 6 holes diameter 5.0 around a circle radius 30.0 on a disk.",
+    "completion": "import cadquery as cq\ndisk = cq.Workplane(\"XY\").circle(40.0).extrude(10.0)\nhole_wp = cq.Workplane(\"XY\").circle(2.5)\nresult = disk.cut(hole_wp.circlePattern(6, 30.0, 0, 360).extrude(10.0))"
+  },
+  {
+    "prompt": "Design a Mirror of a bracket across YZ plane.",
+    "completion": "import cadquery as cq\nbracket = cq.Workplane(\"XY\").box(20.0, 10.0, 30.0)\nresult = bracket.mirror(\"YZ\")"
+  },
+  {
+    "prompt": "Create a Shell of thickness 2.0 on a box 60x40x30.",
+    "completion": "import cadquery as cq\nbox = cq.Workplane(\"XY\").box(60.0, 40.0, 30.0)\nresult = box.faces(\">Z\").shell(-2.0)"
+  },
+  {
+    "prompt": "Generate a Loft between two circles: bottom radius 10.0, top radius 20.0, height 50.0.",
+    "completion": "import cadquery as cq\nbottom = cq.Workplane(\"XY\").circle(10.0)\ntop = cq.Workplane(\"XY\").circle(20.0).translate((0,0,50.0))\nresult = bottom.loft(top)"
+  },
+  {
+    "prompt": "I want a Sweep of a profile along a helix path pitch 10.0, radius 15.0, height 100.0.",
+    "completion": "import cadquery as cq\nprofile = cq.Workplane(\"XZ\").rect(2.0, 5.0)\npath = cq.Workplane(\"XY\").helix(pitch=10.0, height=100.0, radius=15.0)\nresult = profile.sweep(path.wires().val(), isFrenet=True)"
+  },
+  {
+    "prompt": "Design a Union of two cylinders intersecting.",
+    "completion": "import cadquery as cq\ncyl1 = cq.Workplane(\"XY\").cylinder(50.0, 10.0)\ncyl2 = cq.Workplane(\"XZ\").cylinder(50.0, 10.0)\nresult = cyl1.union(cyl2)"
+  },
+  {
+    "prompt": "Create a Compression Spring with diameter 20.0, wire diameter 2.0, coils 10.",
+    "completion": "import cadquery as cq\npath = cq.Workplane(\"XY\").helix(pitch=5.0, height=50.0, radius=10.0, angle=360*10)\nprofile = cq.Workplane(\"YZ\").circle(1.0)\nresult = profile.sweep(path.wires().val(), isFrenet=True)"
+  },
+  {
+    "prompt": "Generate an Elbow Fitting with diameter 25.0, angle 90 degrees.",
+    "completion": "import cadquery as cq\ncyl1 = cq.Workplane(\"XY\").cylinder(25.0, 12.5).translate((-12.5, 0, 0))\ncyl2 = cq.Workplane(\"XY\").cylinder(25.0, 12.5).rotate((0,0,0), (0,0,1), 90).translate((0, -12.5, 0))\nresult = cyl1.union(cyl2)"
+  },
+  {
+    "prompt": "I need a Ball Valve body with diameter 40.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").sphere(20.0)"
+  },
+  {
+    "prompt": "Design a Weld Neck Flange with diameter 100.0, thickness 15.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").circle(50.0).extrude(15.0)"
+  },
+  {
+    "prompt": "Create an L-Bracket with legs 50.0x20.0x5.0.",
+    "completion": "import cadquery as cq\nleg1 = cq.Workplane(\"XY\").box(50.0, 20.0, 5.0)\nleg2 = cq.Workplane(\"XY\").box(20.0, 50.0, 5.0).translate((0, 30.0, 0))\nresult = leg1.union(leg2)"
+  },
+  {
+    "prompt": "Generate a Project Box 80x60x30.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").box(80.0, 60.0, 30.0)"
+  },
+  {
+    "prompt": "I want a Control Knob with diameter 25.0, height 15.0.",
+    "completion": "import cadquery as cq\nknob = cq.Workplane(\"XY\").cylinder(15.0, 12.5)\nhole = cq.Workplane(\"XY\").circle(2.5).extrude(15.0)\nresult = knob.cut(hole)"
+  },
+  {
+    "prompt": "Design an O-Ring with inner diameter 20.0, cross-section 3.0.",
+    "completion": "import cadquery as cq\nresult = cq.Workplane(\"XY\").circle(10.0).circle(11.5).extrude(3.0)"
+  },
+
+  {
+    "prompt": "Create a Wood Screw with diameter 4.0 and length 25.0.",
+    "completion": "import cadquery as cq\nshank = cq.Workplane(\"XY\").cylinder(25.0, 2.0)\nhead = cq.Workplane(\"XY\").cone(5.0, 4.0, 0.0).translate((0, 0, 20.0))\nresult = shank.union(head)"
+  },
+  {
+    "prompt": "Generate a Carriage Bolt with M12 thread, length 50.0.",
+    "completion": "import cadquery as cq\nhead = cq.Workplane(\"XY\").rect(24.0, 12.0).extrude(8.0)\nshank = cq.Workplane(\"XY\").cylinder(50.0, 6.0).translate((0, 0, 8.0))\nresult = head.union(shank)"
+  },
+  {
+    "prompt": "I need a Nyloc Nut for M6 thread.",
+    "completion": "import cadquery as cq\nnut = cq.Workplane(\"XY\").hexagon(10.0).extrude(5.0)\nhole = cq.Workplane(\"XY\").cylinder(5.0, 3.0)\nresult = nut.cut(hole)"
+  },
+  {
+    "prompt": "Design a Spring Washer with outer diameter 20.0, inner diameter 10.0, thickness 2.0.",
+    "completion": "import cadquery as cq\nwasher = cq.Workplane(\"XY\").circle(5.0).circle(10.0).extrude(2.0)\nresult = washer.spring(1.0)"
+  },
+  {
+    "prompt": "Create a Clevis Pin with diameter 8.0, length 40.0, and head diameter 12.0.",
+    "completion": "import cadquery as cq\npin = cq.Workplane(\"XY\").cylinder(40.0, 4.0)\nhead = cq.Workplane(\"XY\").circle(6.0).extrude(5.0)\nresult = pin.union(head)"
+  },
+  {
+    "prompt": "Generate a Cotter Pin with diameter 3.0 and length 20.0.",
+    "completion": "import cadquery as cq\npin = cq.Workplane(\"XY\").cylinder(20.0, 1.5)\nlegs = cq.Workplane(\"XY\").rect(1.0, 10.0).extrude(3.0).translate((0, 0, 10.0))\nresult = pin.union(legs)"
+  },
+  {
+    "prompt": "I want an External Circlip with diameter 25.0, thickness 1.5.",
+    "completion": "import cadquery as cq\nring = cq.Workplane(\"XY\").circle(12.5).extrude(1.5)\ngap = cq.Workplane(\"XY\").sector(12.5, 5.0, 0, 30).extrude(1.5)\nresult = ring.cut(gap)"
+  },
+  {
+    "prompt": "Design a Helical Gear with 30 teeth, module 2.0, width 15.0, helix angle 20.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=30, width=15.0, helix_angle=20.0)"
+  },
+  {
+    "prompt": "Create a Cylindrical Roller Bearing with inner diameter 20.0, outer diameter 42.0, width 12.0.",
+    "completion": "import cadquery as cq\ninner = cq.Workplane(\"XY\").cylinder(12.0, 10.0)\nouter = cq.Workplane(\"XY\").cylinder(12.0, 21.0)\nresult = outer.cut(inner)"
+  },
+  {
+    "prompt": "Generate a Splined Shaft with diameter 25.0, 6 splines, length 80.0.",
+    "completion": "import cadquery as cq\nshaft = cq.Workplane(\"XY\").cylinder(80.0, 12.5)\nspline = cq.Workplane(\"XY\").rect(5.0, 20.0).extrude(80.0).rotate((0,0,0),(0,0,1),60)\nresult = shaft.union(spline)"
+  },
+  {
+    "prompt": "I need a Flexible Coupling with bore 15.0, length 50.0.",
+    "completion": "import cadquery as cq\nhub = cq.Workplane(\"XY\").cylinder(50.0, 20.0).cut(cq.Workplane(\"XY\").cylinder(50.0, 7.5))\nresult = hub"
+  },
+  {
+    "prompt": "Design a Universal Joint with diameter 30.0, length 60.0.",
+    "completion": "import cadquery as cq\nyoke = cq.Workplane(\"XY\").box(10.0, 30.0, 60.0)\nresult = yoke"
+  },
+  {
+    "prompt": "Create a Timing Pulley with 48 teeth, pitch 2.0, width 20.0.",
+    "completion": "import cadquery as cq\npulley = cq.Workplane(\"XY\").circle(48.0).extrude(20.0)\nresult = pulley"
+  },
+  {
+    "prompt": "Generate a Roller Chain Sprocket with 20 teeth, pitch 12.7.",
+    "completion": "import cadquery as cq\nsprocket = cq.Workplane(\"XY\").circle(20.0).extrude(10.0)\nresult = sprocket"
+  },
+  {
+    "prompt": "I want a Disc Clutch with diameter 100.0, thickness 5.0.",
+    "completion": "import cadquery as cq\nclutch = cq.Workplane(\"XY\").circle(50.0).extrude(5.0)\nresult = clutch"
+  },
+  {
+    "prompt": "Design a Parallel Key with width 6.0, height 6.0, length 30.0.",
+    "completion": "import cadquery as cq\nkey = cq.Workplane(\"XY\").box(30.0, 6.0, 6.0)\nresult = key"
+  },
+  {
+    "prompt": "Create a Revolved Cut of a profile on a cylinder diameter 40.0, height 50.0.",
+    "completion": "import cadquery as cq\ncyl = cq.Workplane(\"XY\").cylinder(50.0, 20.0)\nprofile = cq.Workplane(\"XZ\").rect(5.0, 10.0)\nresult = cyl.cut(profile.revolve(360))"
+  },
+  {
+    "prompt": "Generate a Linear Pattern of 4 bolts spaced 20.0 apart on a plate.",
+    "completion": "import cadquery as cq\nplate = cq.Workplane(\"XY\").rect(100.0, 100.0).extrude(5.0)\nhole = cq.Workplane(\"XY\").circle(5.0).extrude(5.0)\nresult = plate.cut(hole.linearPattern((20.0,0,0), (0,0,1), 4, 20.0))"
+  },
+  {
+    "prompt": "I need a Boolean Subtract of a hole from a block 50x30x20.",
+    "completion": "import cadquery as cq\nblock = cq.Workplane(\"XY\").box(50.0, 30.0, 20.0)\nhole = cq.Workplane(\"XY\").circle(10.0).extrude(20.0)\nresult = block.cut(hole)"
+  },
+  {
+    "prompt": "Design a Torsion Spring with diameter 15.0, wire 1.5, coils 8.",
+    "completion": "import cadquery as cq\npath = cq.Workplane(\"XY\").helix(pitch=0, height=0, radius=7.5, angle=360*8)\nprofile = cq.Workplane(\"YZ\").circle(0.75)\nresult = profile.sweep(path.wires().val(), isFrenet=True)"
+  },
+  {
+    "prompt": "Create a Tee Fitting with diameter 20.0.",
+    "completion": "import cadquery as cq\nmain = cq.Workplane(\"XY\").cylinder(20.0, 10.0)\nbranch = cq.Workplane(\"XZ\").cylinder(20.0, 10.0).translate((10.0, 0, 0))\nresult = main.union(branch)"
+  },
+  {
+    "prompt": "Generate a Gate Valve body with diameter 50.0, height 100.0.",
+    "completion": "import cadquery as cq\nbody = cq.Workplane(\"XY\").cylinder(100.0, 25.0)\nresult = body"
+  },
+  {
+    "prompt": "I want a Blind Flange with diameter 80.0, thickness 12.0.",
+    "completion": "import cadquery as cq\nflange = cq.Workplane(\"XY\").circle(40.0).extrude(12.0)\nresult = flange"
+  },
+  {
+    "prompt": "Design a Motor Mount bracket 100x80x10.",
+    "completion": "import cadquery as cq\nmount = cq.Workplane(\"XY\").box(100.0, 80.0, 10.0)\nholes = cq.Workplane(\"XY\").circle(5.0).circlePattern(4, 40.0, 0, 360).extrude(10.0)\nresult = mount.cut(holes)"
+  },
+  {
+    "prompt": "Create a Lever Handle with length 150.0, grip diameter 20.0.",
+    "completion": "import cadquery as cq\nlever = cq.Workplane(\"XY\").cylinder(150.0, 10.0)\ngrip = cq.Workplane(\"XY\").cylinder(20.0, 10.0).translate((0, 0, 75.0))\nresult = lever.union(grip)"
+  }
+]

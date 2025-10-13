@@ -1,304 +1,542 @@
 [
-    {"prompt": "Create a SpurGear with module 1.0, 20 teeth, and a width of 10.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.0, teeth_number=20, width=10.0)"},
-    {"prompt": "Generate a SpurGear having 15 teeth, a module of 1.5, and a width of 12.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=15, width=12.0)"},
-    {"prompt": "I need a SpurGear with the following specifications: module=2.0, teeth_number=30, width=15.0, and a bore diameter of 5.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=30, width=15.0, bore_d=5.0)"},
-    {"prompt": "Can you make a SpurGear with 25 teeth, module 0.8, width 8.0, and pressure angle of 20 degrees?", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.8, teeth_number=25, width=8.0, pressure_angle=20.0)"},
-    {"prompt": "Design a SpurGear with a module of 2.5, 40 teeth, a width of 20.0, and a hub diameter of 10.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=40, width=20.0, hub_d=10.0)"},
-    {"prompt": "Create a SpurGear with 18 teeth, module 1.2, width 9.0, and a hub on both sides with a diameter of 8.0 and length of 3.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.2, teeth_number=18, width=9.0, hub_d=8.0, hub_length_a=3.0, hub_length_b=3.0)"},
-    {"prompt": "Generate a SpurGear with a module of 3.0, 50 teeth, a width of 25.0, and a keyway of size (2.0, 1.0).", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.0, teeth_number=50, width=25.0, keyway=(2.0, 1.0))"},
-    {"prompt": "I want a SpurGear with 22 teeth, module 1.8, width 14.0, and an addendum coefficient of 1.1.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.8, teeth_number=22, width=14.0, addendum_coeff=1.1)"},
-    {"prompt": "Create a SpurGear with a dedendum coefficient of 1.3, 35 teeth, module 2.2, and width 18.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.2, teeth_number=35, width=18.0, dedendum_coeff=1.3)"},
-    {"prompt": "Design a simple SpurGear with module 0.5, 12 teeth, and a width of 5.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.5, teeth_number=12, width=5.0, simple=True)"},
-    {"prompt": "Generate a HelicalGear with module 1.0, 20 teeth, width 10.0, and a helix angle of 20 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=20, width=10.0, helix_angle=20.0)"},
-    {"prompt": "Create a right-handed HelicalGear with 30 teeth, module 1.5, width 15.0, and a 25-degree helix angle.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=30, width=15.0, helix_angle=25.0, right_hand=True)"},
-    {"prompt": "I need a left-handed HelicalGear with module 2.0, 40 teeth, width 20.0, and a helix angle of -30 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=40, width=20.0, helix_angle=-30.0, right_hand=False)"},
-    {"prompt": "Generate a HelicalGear with 25 teeth, module 1.2, width 12.0, a helix angle of 15.0, and a bore diameter of 6.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.2, teeth_number=25, width=12.0, helix_angle=15.0, bore_d=6.0)"},
-    {"prompt": "Design a HelicalGear with a pressure angle of 25 degrees, module 1.8, 35 teeth, width 18.0, and helix angle 22.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.8, teeth_number=35, width=18.0, pressure_angle=25.0, helix_angle=22.0)"},
-    {"prompt": "Create a HelicalGear with a hub diameter of 12.0, module 2.5, 50 teeth, width 25.0, and helix angle of 18.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.5, teeth_number=50, width=25.0, helix_angle=18.0, hub_d=12.0)"},
-    {"prompt": "Generate a HelicalGear with a keyway of size (3.0, 1.5), module 2.0, 45 teeth, width 22.0, and helix angle 20.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=45, width=22.0, helix_angle=20.0, keyway=(3.0, 1.5))"},
-    {"prompt": "I want a simple HelicalGear with module 0.7, 18 teeth, width 7.0, and a helix angle of 10.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.7, teeth_number=18, width=7.0, helix_angle=10.0, simple=True)"},
-    {"prompt": "Design a HelicalGear with an addendum coefficient of 1.05 and a dedendum coefficient of 1.2, having 28 teeth, module 1.5, width 14.0, and helix angle 12.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=28, width=14.0, helix_angle=12.0, addendum_coeff=1.05, dedendum_coeff=1.2)"},
-    {"prompt": "Create a left-handed HelicalGear with a hub on one side of diameter 10.0 and length 4.0. It should have a module of 1.6, 32 teeth, a width of 16.0, and a helix angle of -18.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.6, teeth_number=32, width=16.0, helix_angle=-18.0, right_hand=False, hub_d=10.0, hub_length_a=4.0)"},
-    {"prompt": "Generate a HerringboneGear with module 1.0, 20 teeth, width 20.0, and a helix angle of 20 degrees.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.0, teeth_number=20, width=20.0, helix_angle=20.0)"},
-    {"prompt": "Create a HerringboneGear with 30 teeth, module 1.5, width 30.0, and a 25-degree helix angle.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=30, width=30.0, helix_angle=25.0)"},
-    {"prompt": "I need a HerringboneGear with module 2.0, 40 teeth, width 40.0, a helix angle of 30 degrees, and a bore diameter of 10.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=40, width=40.0, helix_angle=30.0, bore_d=10.0)"},
-    {"prompt": "Generate a HerringboneGear with 25 teeth, module 1.2, width 24.0, a helix angle of 15.0, and a central gap of 2.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.2, teeth_number=25, width=24.0, helix_angle=15.0, gap=2.0)"},
-    {"prompt": "Design a HerringboneGear with a pressure angle of 22 degrees, module 1.8, 35 teeth, width 36.0, and helix angle 22.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.8, teeth_number=35, width=36.0, pressure_angle=22.0, helix_angle=22.0)"},
-    {"prompt": "Create a HerringboneGear with a hub diameter of 15.0, module 2.5, 50 teeth, width 50.0, and helix angle of 18.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=50, width=50.0, helix_angle=18.0, hub_d=15.0)"},
-    {"prompt": "Generate a HerringboneGear with a keyway of size (4.0, 2.0), module 2.0, 45 teeth, width 44.0, and helix angle 20.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=45, width=44.0, helix_angle=20.0, keyway=(4.0, 2.0))"},
-    {"prompt": "I want a simple HerringboneGear with module 0.7, 18 teeth, width 14.0, and a helix angle of 10.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=0.7, teeth_number=18, width=14.0, helix_angle=10.0, simple=True)"},
-    {"prompt": "Design a HerringboneGear with an addendum coefficient of 1.1 and a dedendum coefficient of 1.3, having 28 teeth, module 1.5, width 28.0, and helix angle 12.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=28, width=28.0, helix_angle=12.0, addendum_coeff=1.1, dedendum_coeff=1.3)"},
-    {"prompt": "Create a HerringboneGear with a hub on both sides of diameter 12.0 and length 5.0. It should have a module of 1.6, 32 teeth, a width of 32.0, and a helix angle of 18.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.6, teeth_number=32, width=32.0, helix_angle=18.0, hub_d=12.0, hub_length_a=5.0, hub_length_b=5.0)"},
-    {"prompt": "Generate a RingGear with module 1.0, 40 teeth, and a width of 10.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.0, teeth_number=40, width=10.0)"},
-    {"prompt": "Create a RingGear having 50 teeth, a module of 1.5, and a width of 12.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=50, width=12.0)"},
-    {"prompt": "I need a RingGear with the following specifications: module=2.0, teeth_number=60, width=15.0, and an outer diameter of 125.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=60, width=15.0, outer_d=125.0)"},
-    {"prompt": "Can you make a RingGear with 45 teeth, module 1.2, width 10.0, and pressure angle of 20 degrees?", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.2, teeth_number=45, width=10.0, pressure_angle=20.0)"},
-    {"prompt": "Design a RingGear with a module of 2.5, 80 teeth, a width of 20.0, and a hub diameter of 210.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.5, teeth_number=80, width=20.0, hub_d=210.0)"},
-    {"prompt": "Create a RingGear with 55 teeth, module 1.8, width 14.0, and a hub on one side with a diameter of 105.0 and length of 5.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.8, teeth_number=55, width=14.0, hub_d=105.0, hub_length_a=5.0)"},
-    {"prompt": "Generate a helical RingGear with module 1.0, 40 teeth, width 10.0, and a helix angle of 15 degrees.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.0, teeth_number=40, width=10.0, helix_angle=15.0)"},
-    {"prompt": "I want a RingGear with 65 teeth, module 2.2, width 18.0, and an addendum coefficient of 1.15.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.2, teeth_number=65, width=18.0, addendum_coeff=1.15)"},
-    {"prompt": "Create a RingGear with a dedendum coefficient of 1.35, 70 teeth, module 2.0, and width 16.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=70, width=16.0, dedendum_coeff=1.35)"},
-    {"prompt": "Design a simple RingGear with module 0.8, 30 teeth, and a width of 8.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=0.8, teeth_number=30, width=8.0, simple=True)"},
-    {"prompt": "Generate a BevelGear with module 1.0, 20 teeth, and a pitch angle of 45 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.0, teeth_number=20, pitch_angle=45.0)"},
-    {"prompt": "Create a BevelGear having 25 teeth, a module of 1.5, and a pitch angle of 30 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.5, teeth_number=25, pitch_angle=30.0)"},
-    {"prompt": "I need a BevelGear with the following specifications: module=2.0, teeth_number=30, pitch_angle=60.0, and a bore diameter of 8.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=30, pitch_angle=60.0, bore_d=8.0)"},
-    {"prompt": "Can you make a BevelGear with 18 teeth, module 1.2, pitch angle 50.0, and pressure angle of 20 degrees?", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.2, teeth_number=18, pitch_angle=50.0, pressure_angle=20.0)"},
-    {"prompt": "Design a BevelGear with a module of 2.5, 35 teeth, a pitch angle of 40.0, and a face width of 10.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.5, teeth_number=35, pitch_angle=40.0, face_width=10.0)"},
-    {"prompt": "Create a BevelGear with a root angle offset of 5.0 degrees, 22 teeth, module 1.8, and pitch angle 55.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.8, teeth_number=22, pitch_angle=55.0, root_angle_offset=5.0)"},
-    {"prompt": "Generate a BevelGear with a face angle offset of -2.0 degrees, module 2.2, 28 teeth, and pitch angle 35.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.2, teeth_number=28, pitch_angle=35.0, face_angle_offset=-2.0)"},
-    {"prompt": "I want a BevelGear with a keyway of size (2.5, 1.2), 26 teeth, module 2.0, and pitch angle 48.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=26, pitch_angle=48.0, keyway=(2.5, 1.2))"},
-    {"prompt": "Create a helical BevelGear with module 1.0, 20 teeth, pitch angle 45 degrees, and a helix angle of 15 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.0, teeth_number=20, pitch_angle=45.0, helix_angle=15.0)"},
-    {"prompt": "Design a simple BevelGear with module 0.9, 15 teeth, and a pitch angle of 40.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=0.9, teeth_number=15, pitch_angle=40.0, simple=True)"},
-    {"prompt": "Generate a RackGear with module 1.0, a length of 100.0, and a width of 10.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.0, length=100.0, width=10.0)"},
-    {"prompt": "Create a RackGear of length 120.0, width 12.0, and a module of 1.5.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.5, length=120.0, width=12.0)"},
-    {"prompt": "I need a RackGear with the following specifications: module=2.0, length=150.0, width=15.0, and a height of 10.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=150.0, width=15.0, height=10.0)"},
-    {"prompt": "Can you make a RackGear of length 80.0, width 8.0, module 0.8, and a pressure angle of 20 degrees?", "completion": "from cq_gears import RackGear\nresult = RackGear(module=0.8, length=80.0, width=8.0, pressure_angle=20.0)"},
-    {"prompt": "Design a helical RackGear with a module of 1.2, length 110.0, width 10.0, and a helix angle of 10 degrees.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.2, length=110.0, width=10.0, helix_angle=10.0)"},
-    {"prompt": "Create a right-handed helical RackGear of length 130.0, width 14.0, module 1.8, and a helix angle of 18.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.8, length=130.0, width=14.0, helix_angle=18.0, right_hand=True)"},
-    {"prompt": "Generate a left-handed helical RackGear with module 2.5, length 200.0, width 20.0, and a helix angle of -25.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.5, length=200.0, width=20.0, helix_angle=-25.0, right_hand=False)"},
-    {"prompt": "I want a RackGear with an addendum coefficient of 1.1, module 1.6, length 140.0, and width 16.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.6, length=140.0, width=16.0, addendum_coeff=1.1)"},
-    {"prompt": "Create a RackGear with a dedendum coefficient of 1.3, module 2.2, length 180.0, and width 18.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.2, length=180.0, width=18.0, dedendum_coeff=1.3)"},
-    {"prompt": "Design a simple RackGear with module 0.5, length 50.0, and a width of 5.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=0.5, length=50.0, width=5.0, simple=True)"},
-    {"prompt": "Create a SpurGear with a high tooth count of 100, module 0.5, and width 8.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.5, teeth_number=100, width=8.0)"},
-    {"prompt": "Generate a SpurGear with a fractional module of 1.25 and 32 teeth and a width of 10.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.25, teeth_number=32, width=10.0)"},
-    {"prompt": "I need a SpurGear with a very small module of 0.3, 10 teeth, and a width of 4.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.3, teeth_number=10, width=4.0)"},
-    {"prompt": "Can you make a SpurGear with an unusual pressure angle of 14.5 degrees, 48 teeth, module 2.0, and width 20.0?", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=48, width=20.0, pressure_angle=14.5)"},
-    {"prompt": "Design a SpurGear with a large bore of 20.0mm, 60 teeth, module 3.0, and width 30.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.0, teeth_number=60, width=30.0, bore_d=20.0)"},
-    {"prompt": "Create a SpurGear with a prominent hub of 25.0mm diameter and 10.0mm length on one side, with 45 teeth, module 2.5, and width 25.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=45, width=25.0, hub_d=25.0, hub_length_a=10.0)"},
-    {"prompt": "Generate a SpurGear with a rectangular keyway of 5.0mm by 3.0mm, 55 teeth, module 2.8, and width 28.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.8, teeth_number=55, width=28.0, keyway=(5.0, 3.0))"},
-    {"prompt": "I want a SpurGear with a custom addendum (1.2) and dedendum (1.4) coefficient, 28 teeth, module 1.5, and width 15.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=28, width=15.0, addendum_coeff=1.2, dedendum_coeff=1.4)"},
-    {"prompt": "Design a simplified SpurGear for visualization purposes with 16 teeth, module 1.0, and width 6.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.0, teeth_number=16, width=6.0, simple=True)"},
-    {"prompt": "Create a wide SpurGear with a width of 50.0mm, 80 teeth, and a module of 4.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=4.0, teeth_number=80, width=50.0)"},
-    {"prompt": "Generate a HelicalGear with a shallow helix angle of 5 degrees, 22 teeth, module 1.0, and width 10.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=22, width=10.0, helix_angle=5.0)"},
-    {"prompt": "Create a left-handed HelicalGear with a steep helix angle of -40 degrees, 50 teeth, module 2.0, and width 30.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=50, width=30.0, helix_angle=-40.0, right_hand=False)"},
-    {"prompt": "I need a HelicalGear with a keyway and a hub. Keyway size is (4.0, 2.5), hub diameter is 18.0mm. The gear has 38 teeth, module 1.8, width 20.0, and a helix angle of 28.0 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.8, teeth_number=38, width=20.0, helix_angle=28.0, hub_d=18.0, keyway=(4.0, 2.5))"},
-    {"prompt": "Design a HelicalGear with a non-standard pressure angle of 18.0 degrees, 33 teeth, module 1.6, width 18.0, and helix angle 22.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.6, teeth_number=33, width=18.0, pressure_angle=18.0, helix_angle=22.0)"},
-    {"prompt": "Generate a simple right-handed HelicalGear with 15 teeth, module 0.9, width 9.0, and helix angle 12.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.9, teeth_number=15, width=9.0, helix_angle=12.0, right_hand=True, simple=True)"},
-    {"prompt": "Create a HelicalGear with a custom tooth profile using addendum coefficient 1.15 and dedendum coefficient 1.35. It should have 26 teeth, module 1.4, width 16.0, and helix angle 16.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.4, teeth_number=26, width=16.0, helix_angle=16.0, addendum_coeff=1.15, dedendum_coeff=1.35)"},
-    {"prompt": "I want a HelicalGear with a hub on both sides. Hub diameter is 20.0mm, and each hub length is 8.0mm. The gear has 42 teeth, module 2.2, width 25.0, and helix angle 19.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.2, teeth_number=42, width=25.0, helix_angle=19.0, hub_d=20.0, hub_length_a=8.0, hub_length_b=8.0)"},
-    {"prompt": "Design a narrow HelicalGear with a width of 5.0mm, 18 teeth, module 0.8, and a helix angle of 8.0 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.8, teeth_number=18, width=5.0, helix_angle=8.0)"},
-    {"prompt": "Generate a large HelicalGear with 120 teeth, module 5.0, width 60.0, and a helix angle of 30.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=5.0, teeth_number=120, width=60.0, helix_angle=30.0)"},
-    {"prompt": "Create a HerringboneGear with a small gap of 1.0mm, 24 teeth, module 1.0, width 22.0, and a helix angle of 18.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.0, teeth_number=24, width=22.0, helix_angle=18.0, gap=1.0)"},
-    {"prompt": "Generate a HerringboneGear with no gap, 36 teeth, module 1.5, width 30.0, and a helix angle of 25.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=36, width=30.0, helix_angle=25.0, gap=0.0)"},
-    {"prompt": "I need a HerringboneGear with a large central gap of 5.0mm, 48 teeth, module 2.0, width 50.0, and a helix angle of 30.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=48, width=50.0, helix_angle=30.0, gap=5.0)"},
-    {"prompt": "Design a HerringboneGear with a bore and a hub. Bore diameter is 15.0mm, hub diameter is 25.0mm. The gear has 40 teeth, module 1.8, width 40.0, and a helix angle of 22.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.8, teeth_number=40, width=40.0, helix_angle=22.0, bore_d=15.0, hub_d=25.0)"},
-    {"prompt": "Create a simple HerringboneGear with 20 teeth, module 1.2, width 24.0, and helix angle 15.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.2, teeth_number=20, width=24.0, helix_angle=15.0, simple=True)"},
-    {"prompt": "Generate a HerringboneGear with a keyway and hubs on both sides. Keyway size is (5.0, 3.0), hub diameter is 30.0mm, and each hub length is 10.0mm. The gear has 55 teeth, module 2.5, width 55.0, and helix angle of 20.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=55, width=55.0, helix_angle=20.0, keyway=(5.0, 3.0), hub_d=30.0, hub_length_a=10.0, hub_length_b=10.0)"},
-    {"prompt": "I want a HerringboneGear with a custom tooth profile: addendum 1.1, dedendum 1.3. It should have 32 teeth, module 1.6, width 32.0, and a helix angle of 16.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.6, teeth_number=32, width=32.0, helix_angle=16.0, addendum_coeff=1.1, dedendum_coeff=1.3)"},
-    {"prompt": "Design a wide HerringboneGear with a width of 80.0mm, 100 teeth, module 4.0, and a helix angle of 35.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=4.0, teeth_number=100, width=80.0, helix_angle=35.0)"},
-    {"prompt": "Create a HerringboneGear with a non-standard pressure angle of 22.5 degrees, 28 teeth, module 1.5, width 30.0, and helix angle 18.0.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=28, width=30.0, pressure_angle=22.5, helix_angle=18.0)"},
-    {"prompt": "Generate a RingGear with a large number of teeth (120), module 1.0, and a width of 15.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.0, teeth_number=120, width=15.0)"},
-    {"prompt": "Create a RingGear with a very large outer diameter of 300.0mm, 100 teeth, and a module of 2.5.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.5, teeth_number=100, width=20.0, outer_d=300.0)"},
-    {"prompt": "I need a helical RingGear with a left-handed helix of -20 degrees, 80 teeth, module 2.0, and width 25.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=80, width=25.0, helix_angle=-20.0)"},
-    {"prompt": "Design a RingGear with a prominent hub on one side. Hub diameter is 250.0mm, hub length is 15.0mm. The gear has 90 teeth, module 2.2, and width 22.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.2, teeth_number=90, width=22.0, hub_d=250.0, hub_length_a=15.0)"},
-    {"prompt": "Generate a simple RingGear for a planetary system with 36 teeth, module 1.2, and width 12.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.2, teeth_number=36, width=12.0, simple=True)"},
-    {"prompt": "Create a RingGear with a custom tooth profile: addendum 1.05, dedendum 1.25. It should have 75 teeth, module 1.8, and width 18.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.8, teeth_number=75, width=18.0, addendum_coeff=1.05, dedendum_coeff=1.25)"},
-    {"prompt": "I want a RingGear with a non-standard pressure angle of 18 degrees, 68 teeth, module 1.6, and width 16.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.6, teeth_number=68, width=16.0, pressure_angle=18.0)"},
-    {"prompt": "Design a wide RingGear with a width of 40.0mm, 150 teeth, and a module of 3.0.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=3.0, teeth_number=150, width=40.0)"},
-    {"prompt": "Generate a BevelGear with a small number of teeth (12), module 1.0, and a pitch angle of 30 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.0, teeth_number=12, pitch_angle=30.0)"},
-    {"prompt": "Create a BevelGear with a large number of teeth (60), module 2.0, and a pitch angle of 60 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=60, pitch_angle=60.0)"},
-    {"prompt": "I need a helical BevelGear with a right-handed helix of 20 degrees, 30 teeth, module 1.5, and a pitch angle of 45 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.5, teeth_number=30, pitch_angle=45.0, helix_angle=20.0)"},
-    {"prompt": "Design a BevelGear with a keyway and a bore. Keyway size is (3.0, 1.8), bore diameter is 10.0mm. The gear has 24 teeth, module 1.8, and a pitch angle of 50.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.8, teeth_number=24, pitch_angle=50.0, bore_d=10.0, keyway=(3.0, 1.8))"},
-    {"prompt": "Generate a simple BevelGear with 16 teeth, module 1.2, and a pitch angle of 40.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.2, teeth_number=16, pitch_angle=40.0, simple=True)"},
-    {"prompt": "Create a BevelGear with a custom face width of 12.0mm, 28 teeth, module 2.2, and a pitch angle of 35.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.2, teeth_number=28, pitch_angle=35.0, face_width=12.0)"},
-    {"prompt": "I want a BevelGear with a non-standard pressure angle of 16.0 degrees, 20 teeth, module 1.4, and pitch angle 55.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.4, teeth_number=20, pitch_angle=55.0, pressure_angle=16.0)"},
-    {"prompt": "Design a BevelGear with specified root and face angle offsets of 3.0 and -1.0 degrees respectively. The gear has 25 teeth, module 2.0, and a pitch angle of 48.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=25, pitch_angle=48.0, root_angle_offset=3.0, face_angle_offset=-1.0)"},
-    {"prompt": "Generate a short RackGear with a length of 50.0mm, module 1.0, and width 8.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.0, length=50.0, width=8.0)"},
-    {"prompt": "Create a very long RackGear with a length of 500.0mm, module 2.0, and width 20.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=500.0, width=20.0)"},
-    {"prompt": "I need a helical RackGear with a steep helix angle of 30 degrees, module 1.5, length 200.0, and width 15.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.5, length=200.0, width=15.0, helix_angle=30.0)"},
-    {"prompt": "Design a RackGear with a custom height of 12.0mm, module 1.8, length 160.0, and width 18.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.8, length=160.0, width=18.0, height=12.0)"},
-    {"prompt": "Generate a simple left-handed helical RackGear with a helix angle of -15 degrees, module 1.2, length 120.0, and width 12.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.2, length=120.0, width=12.0, helix_angle=-15.0, right_hand=False, simple=True)"},
-    {"prompt": "Create a RackGear with a non-standard pressure angle of 15.0 degrees, module 2.2, length 220.0, and width 22.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.2, length=220.0, width=22.0, pressure_angle=15.0)"},
-    {"prompt": "I want a RackGear with custom addendum (1.1) and dedendum (1.3) coefficients, module 1.4, length 140.0, and width 14.0.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.4, length=140.0, width=14.0, addendum_coeff=1.1, dedendum_coeff=1.3)"},
-    {"prompt": "Design a wide RackGear with a width of 30.0mm, module 2.5, and a length of 250.0mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.5, length=250.0, width=30.0)"},
-    {"prompt": "Create a SpurGear for a high-torque transmission with module 3.0, 60 teeth, a wide face of 40.0mm, a 15mm bore for the shaft, a 30mm hub, and a 5x3mm keyway.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.0, teeth_number=60, width=40.0, bore_d=15.0, hub_d=30.0, keyway=(5.0, 3.0))"},
-    {"prompt": "I need a small plastic SpurGear with a 0.5 module, 8 teeth, a width of 5mm, and a simple profile for 3D printing.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.5, teeth_number=8, width=5.0, simple=True)"},
-    {"prompt": "Generate a SpurGear with an asymmetric hub. The gear has 35 teeth, a 2.0 module, 20mm width. The hub is 40mm in diameter, 10mm long on one side and 5mm on the other. It also needs a 12mm central hole.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=35, width=20.0, hub_d=40.0, bore_d=12.0, hub_length_a=10.0, hub_length_b=5.0)"},
-    {"prompt": "Can you make a SpurGear with a non-standard 14.5 degree pressure angle? It should have 48 teeth, a module of 2.5, and a width of 25mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=48, width=25.0, pressure_angle=14.5)"},
-    {"prompt": "Design a large SpurGear with 150 teeth, module 4.0, width 50mm, and a bore of 30mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=4.0, teeth_number=150, width=50.0, bore_d=30.0)"},
-    {"prompt": "I want a SpurGear with a modified tooth profile. Use an addendum coefficient of 1.2 and a dedendum of 1.4. The gear has 24 teeth, a 1.5 module, and is 15mm wide.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=24, width=15.0, addendum_coeff=1.2, dedendum_coeff=1.4)"},
-    {"prompt": "Make me a SpurGear with 28 teeth, module 2, width 18mm, but with no central body, just the teeth.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=28, width=18.0, simple=True)"},
-    {"prompt": "Give me a SpurGear where the hub is the same size as the root diameter. Module 1.0, 30 teeth, width 12mm, bore 8mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.0, teeth_number=30, width=12.0, bore_d=8.0, hub_d=28.0)"},
-    {"prompt": "Create a detailed SpurGear with 42 teeth, module 1.75, width 20mm, a 10mm bore, a 25mm hub, and a 4x2.5mm keyway.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.75, teeth_number=42, width=20.0, bore_d=10.0, hub_d=25.0, keyway=(4.0, 2.5))"},
-    {"prompt": "A simple SpurGear please: 18 teeth, 1.25 module, 10mm width.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.25, teeth_number=18, width=10.0)"},
-    {"prompt": "Generate a left-handed HelicalGear with a steep 40-degree helix angle. It has 45 teeth, a 2.0 module, and is 35mm wide.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=45, width=35.0, helix_angle=-40.0, right_hand=False)"},
-    {"prompt": "I need a right-handed HelicalGear for a high-speed application. Use a 15-degree helix angle, 32 teeth, 1.5 module, 25mm width, a 10mm shaft opening with a 3x2mm keyway, and a 20mm hub.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=32, width=25.0, helix_angle=15.0, right_hand=True, bore_d=10.0, hub_d=20.0, keyway=(3.0, 2.0))"},
-    {"prompt": "Create a HelicalGear with a very shallow 5-degree helix. Give it 25 teeth, module 1.0, width 15mm, and render it as a simple object.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=25, width=15.0, helix_angle=5.0, simple=True)"},
-    {"prompt": "Design a HelicalGear with an asymmetric hub. 38 teeth, module 1.75, width 22mm, helix 20 deg. The hub is 30mm diameter, 8mm long on side A and 12mm on side B. Bore is 14mm.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.75, teeth_number=38, width=22.0, helix_angle=20.0, bore_d=14.0, hub_d=30.0, hub_length_a=8.0, hub_length_b=12.0)"},
-    {"prompt": "Make a left-handed HelicalGear. Explicitly set right_hand to False. Module 2.5, 50 teeth, width 40mm, helix angle 30 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.5, teeth_number=50, width=40.0, helix_angle=30.0, right_hand=False)"},
-    {"prompt": "Generate a HelicalGear with a custom pressure angle of 22.5 degrees. 28 teeth, 1.25 module, 18mm width, 18-degree helix.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.25, teeth_number=28, width=18.0, pressure_angle=22.5, helix_angle=18.0)"},
-    {"prompt": "I need a compact HelicalGear. Module 0.8, 12 teeth, width 8mm, helix 25 deg, 4mm bore.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.8, teeth_number=12, width=8.0, helix_angle=25.0, bore_d=4.0)"},
-    {"prompt": "Can you create a HelicalGear with modified addendum of 1.1 and dedendum of 1.3? Use 36 teeth, module 2.0, width 28mm, and a helix of 22 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=36, width=28.0, helix_angle=22.0, addendum_coeff=1.1, dedendum_coeff=1.3)"},
-    {"prompt": "A simple right-handed HelicalGear for a prototype. 20 teeth, module 1.0, width 12mm, helix 10 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=20, width=12.0, helix_angle=10.0, right_hand=True, simple=True)"},
-    {"prompt": "Design a robust HelicalGear: 60 teeth, module 3.0, width 45mm, helix 25 deg, 20mm bore, 40mm hub, 6x4mm keyway.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=3.0, teeth_number=60, width=45.0, helix_angle=25.0, bore_d=20.0, hub_d=40.0, keyway=(6.0, 4.0))"},
-    {"prompt": "A HerringboneGear with zero gap. 30 teeth, module 2.0, width 40mm, and a helix angle of 30 degrees.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=30, width=40.0, helix_angle=30.0, gap=0.0)"},
-    {"prompt": "I need a HerringboneGear with a wide 8mm central gap for a tool to pass through. It should have 50 teeth, a 2.5 module, 60mm total width, and a 25-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=50, width=60.0, helix_angle=25.0, gap=8.0)"},
-    {"prompt": "Generate a complete HerringboneGear model with a 12mm bore, a 28mm hub, and a 4x2.5mm keyway. Use 36 teeth, 1.75 module, 45mm width, 20-degree helix, and a standard 2mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.75, teeth_number=36, width=45.0, helix_angle=20.0, bore_d=12.0, hub_d=28.0, keyway=(4.0, 2.5), gap=2.0)"},
-    {"prompt": "Create a simple HerringboneGear for visualization. 18 teeth, 1.0 module, 20mm width, 15-degree helix, and a 1mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.0, teeth_number=18, width=20.0, helix_angle=15.0, gap=1.0, simple=True)"},
-    {"prompt": "Design a HerringboneGear with an asymmetric hub of 35mm diameter. Length on one side is 10mm, the other is flush. Gear has 42 teeth, module 2.0, width 50mm, helix 22 deg, gap 3mm, and a bore of 15mm.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=42, width=50.0, helix_angle=22.0, gap=3.0, bore_d=15.0, hub_d=35.0, hub_length_a=10.0, hub_length_b=0.0)"},
-    {"prompt": "Make a big HerringboneGear with 100 teeth, module 4.0, width 100mm, helix 35 degrees, and a 5mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=4.0, teeth_number=100, width=100.0, helix_angle=35.0, gap=5.0)"},
-    {"prompt": "A HerringboneGear with a non-standard pressure angle of 20.0 and a custom tooth profile (addendum 1.1, dedendum 1.25). Specs: 32 teeth, module 1.5, width 35mm, helix 18 degrees, gap 2.5mm.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=32, width=35.0, helix_angle=18.0, gap=2.5, pressure_angle=20.0, addendum_coeff=1.1, dedendum_coeff=1.25)"},
-    {"prompt": "Generate a HerringboneGear with a very small gap of 0.5mm. Use 24 teeth, module 1.25, width 25mm, and a helix of 12 degrees.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.25, teeth_number=24, width=25.0, helix_angle=12.0, gap=0.5)"},
-    {"prompt": "I need a herringbone gear with no central gap, essentially two helical gears back-to-back. Module 3.0, 60 teeth, width 60mm, helix angle 40 degrees.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=3.0, teeth_number=60, width=60.0, helix_angle=40.0, gap=0.0)"},
-    {"prompt": "Build a simple herringbone gear, 28 teeth, 1.5 module, 30mm width, 25 degree helix, 2mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=28, width=30.0, helix_angle=25.0, gap=2.0, simple=True)"},
-    {"prompt": "Create an internal RingGear for a planetary setup with 72 teeth, module 1.25, and a width of 20mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.25, teeth_number=72, width=20.0)"},
-    {"prompt": "Generate a helical RingGear with a 15-degree helix. It needs 90 teeth, a 1.5 module, and a width of 25mm. Make it a simple model.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=90, width=25.0, helix_angle=15.0, simple=True)"},
-    {"prompt": "I need a large RingGear with an outer diameter of 400mm, 150 teeth, module 2.0, and a width of 30mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=150, width=30.0, outer_d=400.0)"},
-    {"prompt": "Design a RingGear with a hub structure on its exterior. Hub diameter is 220mm, outer diameter is 200mm. It has 100 teeth, module 1.75, and a width of 28mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.75, teeth_number=100, width=28.0, outer_d=200.0, hub_d=220.0)"},
-    {"prompt": "Can you make a RingGear with a non-standard 15-degree pressure angle? Use 80 teeth, module 2.0, and 22mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=80, width=22.0, pressure_angle=15.0)"},
-    {"prompt": "A simple internal gear with 48 teeth, module 1.0, and width 10mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.0, teeth_number=48, width=10.0, simple=True)"},
-    {"prompt": "Left-handed helical RingGear with a -10 degree helix angle, 64 teeth, module 1.5, 20mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=64, width=20.0, helix_angle=-10.0)"},
-    {"prompt": "Generate a RingGear with custom tooth proportions: addendum 1.2, dedendum 1.4. It should have 96 teeth, module 2.0, and be 30mm wide.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=96, width=30.0, addendum_coeff=1.2, dedendum_coeff=1.4)"},
-    {"prompt": "Create a RingGear where the hub extends from one face. Hub diameter 180mm, hub length 10mm, outer diameter 160mm. Gear specs: 85 teeth, module 1.5, width 25mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=85, width=25.0, outer_d=160.0, hub_d=180.0, hub_length_a=10.0)"},
-    {"prompt": "Build me a RingGear with 120 teeth, module 2.5, width 35mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.5, teeth_number=120, width=35.0)"},
-    {"prompt": "Create a miter BevelGear (45-degree pitch angle) with 25 teeth and a 1.5 module.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.5, teeth_number=25, pitch_angle=45.0)"},
-    {"prompt": "I need a BevelGear for a 3:1 reduction. The pinion has 15 teeth and a 1.0 module. What's the pitch angle?", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.0, teeth_number=15, pitch_angle=18.43)"},
-    {"prompt": "Generate a BevelGear with a steep pitch angle of 70 degrees. Use 40 teeth, a 2.0 module, and a 12mm face width.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=40, pitch_angle=70.0, face_width=12.0)"},
-    {"prompt": "Design a BevelGear with an 8mm bore and a 3x1.5mm keyway. It has 22 teeth, module 1.75, and a pitch angle of 55 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.75, teeth_number=22, pitch_angle=55.0, bore_d=8.0, keyway=(3.0, 1.5))"},
-    {"prompt": "Make a simple BevelGear for a mock-up. 18 teeth, module 1.25, pitch angle of 30 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.25, teeth_number=18, pitch_angle=30.0, simple=True)"},
-    {"prompt": "I need a helical BevelGear with a 20-degree helix. 30 teeth, module 2.0, pitch angle 60 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=30, pitch_angle=60.0, helix_angle=20.0)"},
-    {"prompt": "Create a BevelGear with custom tooth angles: root angle offset of 4 degrees and face angle offset of -2 degrees. Specs: 28 teeth, module 2.0, pitch angle 50 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=28, pitch_angle=50.0, root_angle_offset=4.0, face_angle_offset=-2.0)"},
-    {"prompt": "Generate a BevelGear with a non-standard 18.5-degree pressure angle. Use 24 teeth, module 1.5, and a 40-degree pitch angle.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.5, teeth_number=24, pitch_angle=40.0, pressure_angle=18.5)"},
-    {"prompt": "A small BevelGear with 12 teeth, module 0.8, pitch angle 25 degrees, and a 5mm face width.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=0.8, teeth_number=12, pitch_angle=25.0, face_width=5.0)"},
-    {"prompt": "Build a BevelGear with 35 teeth, 2.5 module, and 45 degree pitch angle. Add an 18mm bore.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.5, teeth_number=35, pitch_angle=45.0, bore_d=18.0)"},
-    {"prompt": "Generate a long gear rack, 500mm in length, with a 2.0 module and 20mm width.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=500.0, width=20.0)"},
-    {"prompt": "I need a helical RackGear, left-handed, with a 15-degree helix. Make it 250mm long, 1.5 module, and 18mm wide.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.5, length=250.0, width=18.0, helix_angle=-15.0, right_hand=False)"},
-    {"prompt": "Create a RackGear with a custom height of 15mm. Module is 2.5, length is 300mm, width is 25mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.5, length=300.0, width=25.0, height=15.0)"},
-    {"prompt": "Design a simple RackGear for a linear actuator prototype. 1.0 module, 120mm long, 10mm wide.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.0, length=120.0, width=10.0, simple=True)"},
-    {"prompt": "A helical RackGear, right-handed, with a 20-degree helix. Module 1.75, length 200mm, width 20mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.75, length=200.0, width=20.0, helix_angle=20.0, right_hand=True)"},
-    {"prompt": "Generate a RackGear with a non-standard 16-degree pressure angle. Module 1.25, length 150mm, width 15mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.25, length=150.0, width=15.0, pressure_angle=16.0)"},
-    {"prompt": "I need a short, fine-pitched RackGear. Length 60mm, module 0.7, width 8mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=0.7, length=60.0, width=8.0)"},
-    {"prompt": "Create a simple helical RackGear. 1.5 module, 180mm length, 15mm width, 10-degree helix.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.5, length=180.0, width=15.0, helix_angle=10.0, simple=True)"},
-    {"prompt": "Build me a RackGear with custom tooth profile: addendum 1.15, dedendum 1.35. Module 2.0, length 220mm, width 22mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=220.0, width=22.0, addendum_coeff=1.15, dedendum_coeff=1.35)"},
-    {"prompt": "A standard RackGear, 3.0 module, 400mm long, 30mm width, 25mm height.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=3.0, length=400.0, width=30.0, height=25.0)"},
-    {"prompt": "SpurGear with 21 teeth, 1.5 module, 14mm width, and a 6mm center hole.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=21, width=14.0, bore_d=6.0)"},
-    {"prompt": "HelicalGear, 26 teeth, module 2, 20mm width, 20 degree helix, right handed, simple form.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=26, width=20.0, helix_angle=20.0, right_hand=True, simple=True)"},
-    {"prompt": "HerringboneGear, 44 teeth, 2.5 module, 50mm width, 30 degree helix, 4mm gap, 15mm bore.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=44, width=50.0, helix_angle=30.0, gap=4.0, bore_d=15.0)"},
-    {"prompt": "RingGear, 100 teeth, 2.0 module, 25mm width, with a 250mm outer diameter.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=100, width=25.0, outer_d=250.0)"},
-    {"prompt": "BevelGear for a 90 degree angle with a 2:1 ratio. The smaller gear has 20 teeth, module 2.0.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=20, pitch_angle=26.57)"},
-    {"prompt": "RackGear, 1.25 module, 150mm long, 12mm wide, 10mm high.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.25, length=150.0, width=12.0, height=10.0)"},
-    {"prompt": "Create a spur gear with 50 teeth, module 2.5, width 30mm, bore 12mm, hub diameter 30mm, hub length 5mm on one side and 10mm on the other, and a 4mm by 2mm keyway.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=50, width=30.0, bore_d=12.0, hub_d=30.0, hub_length_a=5.0, hub_length_b=10.0, keyway=(4.0, 2.0))"},
-    {"prompt": "I need a left-handed helical gear with a 35-degree helix. It should have 40 teeth, a 2.0 module, a 25mm width, a 15mm bore, and be in its simple form.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=40, width=25.0, helix_angle=-35.0, right_hand=False, bore_d=15.0, simple=True)"},
-    {"prompt": "Generate a herringbone gear with a very wide gap of 10mm. Use 60 teeth, a 3.0 module, 80mm total width, and a 25-degree helix angle.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=3.0, teeth_number=60, width=80.0, helix_angle=25.0, gap=10.0)"},
-    {"prompt": "Create an internal ring gear with helical teeth (12-degree helix). It must have 88 teeth, a 1.75 module, a 22mm width, and an outer diameter of 180mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.75, teeth_number=88, width=22.0, helix_angle=12.0, outer_d=180.0)"},
-    {"prompt": "Design a bevel gear with a shallow pitch angle of 20 degrees. Give it 16 teeth, a 1.25 module, and a 7mm face width.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.25, teeth_number=16, pitch_angle=20.0, face_width=7.0)"},
-    {"prompt": "Can you make a helical rack, 300mm long, with a 2.0 module, 20mm width, a right-handed 25-degree helix, and a total height of 18mm?", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=300.0, width=20.0, height=18.0, helix_angle=25.0, right_hand=True)"},
-    {"prompt": "A spur gear with an extremely high tooth count of 200, a fine 0.8 module, and a 15mm width.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.8, teeth_number=200, width=15.0)"},
-    {"prompt": "A helical gear with a hub on only one side. Hub diameter 22mm, hub length 8mm. Gear specs: 34 teeth, module 1.5, width 18mm, helix angle 18 degrees, bore 10mm.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=34, width=18.0, helix_angle=18.0, bore_d=10.0, hub_d=22.0, hub_length_a=8.0)"},
-    {"prompt": "A herringbone gear with no gap and a 45-degree helix angle. Use 40 teeth, a 2.0 module, and a 50mm width.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=40, width=50.0, helix_angle=45.0, gap=0.0)"},
-    {"prompt": "Simple ring gear for a simulation with 60 teeth, 1.5 module, and 15mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=60, width=15.0, simple=True)"},
-    {"prompt": "Bevel gear with a crown-like flat pitch angle of 85 degrees. 50 teeth, module 2.5, face width 15mm.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.5, teeth_number=50, pitch_angle=85.0, face_width=15.0)"},
-    {"prompt": "Rack gear, very short, 40mm length, 1.0 module, 10mm width, straight teeth.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.0, length=40.0, width=10.0)"},
-    {"prompt": "A spur gear with a tiny bore of 3mm. Specs are 15 teeth, 0.7 module, 6mm width.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.7, teeth_number=15, width=6.0, bore_d=3.0)"},
-    {"prompt": "A left-handed helical gear with a fractional module of 1.75, 33 teeth, 20mm width, and a 22.5-degree helix.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.75, teeth_number=33, width=20.0, helix_angle=-22.5, right_hand=False)"},
-    {"prompt": "Simple herringbone gear, 22 teeth, module 1.25, width 24mm, helix 20 degrees, gap 1.5mm.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.25, teeth_number=22, width=24.0, helix_angle=20.0, gap=1.5, simple=True)"},
-    {"prompt": "A ring gear with an extremely large outer diameter of 500mm and a hub diameter of 520mm. It has 200 teeth and a 2.0 module.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=200, width=30.0, outer_d=500.0, hub_d=520.0)"},
-    {"prompt": "Helical bevel gear with a 15-degree helix. 28 teeth, module 2.0, pitch angle 50 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=28, pitch_angle=50.0, helix_angle=15.0)"},
-    {"prompt": "A simple, left-handed helical rack. Length 100mm, module 1.0, width 10mm, helix angle -10 degrees.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.0, length=100.0, width=10.0, helix_angle=-10.0, right_hand=False, simple=True)"},
-    {"prompt": "Spur gear, 45 teeth, 3.0 module, 35mm width, 20mm bore, 40mm hub, 6x3mm keyway, simple=false.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.0, teeth_number=45, width=35.0, bore_d=20.0, hub_d=40.0, keyway=(6.0, 3.0), simple=False)"},
-    {"prompt": "Helical gear with everything: 50 teeth, module 2.5, width 40mm, helix 25 deg, bore 18mm, hub_d 35mm, hub_length_a 10mm, hub_length_b 15mm, keyway (5,3), right_hand=true.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.5, teeth_number=50, width=40.0, helix_angle=25.0, bore_d=18.0, hub_d=35.0, hub_length_a=10.0, hub_length_b=15.0, keyway=(5.0, 3.0), right_hand=True)"},
-    {"prompt": "Herringbone gear, 38 teeth, module 2, width 40mm, helix 22.5 deg, gap 3mm, with a 14mm bore.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=38, width=40.0, helix_angle=22.5, gap=3.0, bore_d=14.0)"},
-    {"prompt": "A helical ring gear, left hand, -18 degree helix, 95 teeth, module 1.5, width 25mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=95, width=25.0, helix_angle=-18.0)"},
-    {"prompt": "Bevel gear, 21 teeth, module 1.75, pitch angle 33 degrees, 8mm face width, 10mm bore.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.75, teeth_number=21, pitch_angle=33.0, face_width=8.0, bore_d=10.0)"},
-    {"prompt": "A gear rack, 280mm long, module 2.25, width 22mm, height 20mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.25, length=280.0, width=22.0, height=20.0)"},
-    {"prompt": "Generate a SpurGear with 24 teeth, a module of 1.25, and a width of 11.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.25, teeth_number=24, width=11.0)"},
-    {"prompt": "I need a SpurGear with a 7.0mm bore, 36 teeth, module 1.5, and a width of 14.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=36, width=14.0, bore_d=7.0)"},
-    {"prompt": "Create a simple SpurGear, 14 teeth, 6.0mm width, and 0.7 module.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.7, teeth_number=14, width=6.0, simple=True)"},
-    {"prompt": "Design a SpurGear with a 45mm hub diameter, 60 teeth, module 3.0, width 30.0, and a 20mm bore.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.0, teeth_number=60, width=30.0, bore_d=20.0, hub_d=45.0)"},
-    {"prompt": "Make a SpurGear with a 5x3mm keyway, 50 teeth, width 25mm, module 2.5, and a 15mm bore.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=50, width=25.0, bore_d=15.0, keyway=(5.0, 3.0))"},
-    {"prompt": "A SpurGear with a custom pressure angle of 15 degrees, 40 teeth, module 2.0, and a width of 20.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=40, width=20.0, pressure_angle=15.0)"},
-    {"prompt": "Generate a SpurGear with 32 teeth, module 2.0, width 18.0, and an asymmetric hub: 35mm diameter, 8mm on one side, 4mm on the other.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=32, width=18.0, hub_d=35.0, hub_length_a=8.0, hub_length_b=4.0)"},
-    {"prompt": "I want a SpurGear with modified tooth profile: addendum 1.15, dedendum 1.35. Use 26 teeth, 1.5 module, 15mm width.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=26, width=15.0, addendum_coeff=1.15, dedendum_coeff=1.35)"},
-    {"prompt": "Create a wide SpurGear, 40mm width, 90 teeth, module 4.0, with a 25mm bore.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=4.0, teeth_number=90, width=40.0, bore_d=25.0)"},
-    {"prompt": "A small SpurGear for a model: 10 teeth, 0.4 module, 4mm width, 2mm bore.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.4, teeth_number=10, width=4.0, bore_d=2.0)"},
-    {"prompt": "I need a right-handed HelicalGear with a 22-degree helix, 34 teeth, module 1.75, and a width of 20.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.75, teeth_number=34, width=20.0, helix_angle=22.0, right_hand=True)"},
-    {"prompt": "Generate a left-handed HelicalGear with a -30 degree helix. Give it 50 teeth, a 2.5 module, 30mm width, and a 15mm bore.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.5, teeth_number=50, width=30.0, helix_angle=-30.0, right_hand=False, bore_d=15.0)"},
-    {"prompt": "A simple HelicalGear, 16 teeth, module 0.9, width 10mm, with a shallow 8-degree helix.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.9, teeth_number=16, width=10.0, helix_angle=8.0, simple=True)"},
-    {"prompt": "Design a HelicalGear with a 25mm hub, a 12mm bore, and a 4x2mm keyway. Use 40 teeth, module 2.0, width 25mm, and a 20-degree helix.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=40, width=25.0, helix_angle=20.0, bore_d=12.0, hub_d=25.0, keyway=(4.0, 2.0))"},
-    {"prompt": "Create a HelicalGear with a custom 18-degree pressure angle. It has 30 teeth, a 1.5 module, 18mm width, and a 15-degree helix.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=30, width=18.0, pressure_angle=18.0, helix_angle=15.0)"},
-    {"prompt": "A left-handed HelicalGear with a hub on one side: 18mm diameter, 5mm length. Gear specs: 28 teeth, module 1.25, width 15mm, helix -18 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.25, teeth_number=28, width=15.0, helix_angle=-18.0, right_hand=False, hub_d=18.0, hub_length_a=5.0)"},
-    {"prompt": "Generate a robust HelicalGear with 70 teeth, module 3.5, width 50mm, a 30-degree helix, and a 22mm bore.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=3.5, teeth_number=70, width=50.0, helix_angle=30.0, bore_d=22.0)"},
-    {"prompt": "Make a HelicalGear with a custom tooth profile: addendum 1.0, dedendum 1.2. Use 22 teeth, module 1.0, width 12mm, and a helix of 25 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=22, width=12.0, helix_angle=25.0, addendum_coeff=1.0, dedendum_coeff=1.2)"},
-    {"prompt": "A simple right-handed HelicalGear with 25 teeth, 20mm width, module 1.5, and a 12-degree helix angle.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=25, width=20.0, helix_angle=12.0, right_hand=True, simple=True)"},
-    {"prompt": "I need a compact, left-handed HelicalGear. 15 teeth, 0.6 module, 7mm width, 28-degree helix, 3mm bore.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.6, teeth_number=15, width=7.0, helix_angle=-28.0, right_hand=False, bore_d=3.0)"},
-    {"prompt": "A HerringboneGear with a 2.5mm central gap, 34 teeth, module 1.5, width 35mm, and a 20-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=34, width=35.0, helix_angle=20.0, gap=2.5)"},
-    {"prompt": "Generate a HerringboneGear with zero gap. It has 45 teeth, a 2.25 module, 50mm width, and a steep 35-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.25, teeth_number=45, width=50.0, helix_angle=35.0, gap=0.0)"},
-    {"prompt": "I need a simple HerringboneGear with a 1.5mm gap, 22 teeth, module 1.0, width 25mm, and a 15-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.0, teeth_number=22, width=25.0, helix_angle=15.0, gap=1.5, simple=True)"},
-    {"prompt": "Create a HerringboneGear with a 14mm bore and a 30mm hub. Use 40 teeth, module 2.0, width 45mm, helix 25 degrees, and a 3mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=40, width=45.0, helix_angle=25.0, gap=3.0, bore_d=14.0, hub_d=30.0)"},
-    {"prompt": "Design a large HerringboneGear: 120 teeth, module 5.0, width 120mm, helix 40 degrees, 8mm gap, and a 40mm bore.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=5.0, teeth_number=120, width=120.0, helix_angle=40.0, gap=8.0, bore_d=40.0)"},
-    {"prompt": "A HerringboneGear with a keyway of 6x4mm. It has 55 teeth, module 3.0, width 60mm, a 28-degree helix, a 20mm bore, and a 4mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=3.0, teeth_number=55, width=60.0, helix_angle=28.0, gap=4.0, bore_d=20.0, keyway=(6.0, 4.0))"},
-    {"prompt": "A HerringboneGear with hubs on both sides, 25mm diameter and 8mm long each. Specs: 36 teeth, module 1.75, width 40mm, helix 22 deg, gap 2mm.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.75, teeth_number=36, width=40.0, helix_angle=22.0, gap=2.0, hub_d=25.0, hub_length_a=8.0, hub_length_b=8.0)"},
-    {"prompt": "Generate a HerringboneGear with a very small 0.2mm gap. Use 20 teeth, module 0.8, width 18mm, and a 12-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=0.8, teeth_number=20, width=18.0, helix_angle=12.0, gap=0.2)"},
-    {"prompt": "Simple HerringboneGear, 30 teeth, 30mm width, 2.0 module, 25 degree helix, 2.5mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=30, width=30.0, helix_angle=25.0, gap=2.5, simple=True)"},
-    {"prompt": "Make a HerringboneGear with a wide 6mm gap, 60 teeth, module 2.5, width 70mm, and a 30-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=60, width=70.0, helix_angle=30.0, gap=6.0)"},
-    {"prompt": "Create an internal RingGear with 80 teeth, module 1.5, and a width of 18mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=80, width=18.0)"},
-    {"prompt": "I need a simple RingGear for a planetary set, with 50 teeth, a 1.0 module, and a 12mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.0, teeth_number=50, width=12.0, simple=True)"},
-    {"prompt": "Generate a RingGear with an outer diameter of 350mm. Use 120 teeth, module 2.5, and a width of 30mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.5, teeth_number=120, width=30.0, outer_d=350.0)"},
-    {"prompt": "Design a helical RingGear with a 10-degree helix. It needs 100 teeth, a 2.0 module, and a 25mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=100, width=25.0, helix_angle=10.0)"},
-    {"prompt": "A RingGear with an external hub: 280mm hub diameter, 250mm outer diameter. It has 110 teeth, module 2.0, and a 28mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=110, width=28.0, outer_d=250.0, hub_d=280.0)"},
-    {"prompt": "Can you make a left-handed helical RingGear? -15 degree helix, 75 teeth, module 1.75, 20mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.75, teeth_number=75, width=20.0, helix_angle=-15.0)"},
-    {"prompt": "A large, simple RingGear with 200 teeth, module 3.0, and a width of 40mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=3.0, teeth_number=200, width=40.0, simple=True)"},
-    {"prompt": "Create a RingGear with a custom tooth profile: addendum 1.1, dedendum 1.3. It should have 85 teeth, module 2.0, and be 25mm wide.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=85, width=25.0, addendum_coeff=1.1, dedendum_coeff=1.3)"},
-    {"prompt": "Generate a RingGear with a hub on one side. Hub diameter 150mm, length 12mm. Gear specs: 70 teeth, module 1.5, width 22mm, outer diameter 140mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=70, width=22.0, outer_d=140.0, hub_d=150.0, hub_length_a=12.0)"},
-    {"prompt": "Build a RingGear with 65 teeth, module 1.25, and a width of 15mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.25, teeth_number=65, width=15.0)"},
-    {"prompt": "I need a BevelGear for a 90-degree transmission with a 1:1 ratio. Use 30 teeth and a 2.0 module.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=30, pitch_angle=45.0)"},
-    {"prompt": "Generate a BevelGear with a shallow 25-degree pitch angle. It has 18 teeth, a 1.25 module, and a 6mm face width.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.25, teeth_number=18, pitch_angle=25.0, face_width=6.0)"},
-    {"prompt": "Create a simple BevelGear for a prototype. 25 teeth, pitch angle 50 degrees, module 1.5.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.5, teeth_number=25, pitch_angle=50.0, simple=True)"},
-    {"prompt": "A BevelGear with a 10mm bore and a 3x2mm keyway. Specs: 28 teeth, module 2.0, pitch angle 60 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=28, pitch_angle=60.0, bore_d=10.0, keyway=(3.0, 2.0))"},
-    {"prompt": "Design a helical BevelGear with a 15-degree helix angle. Use 35 teeth, module 2.5, and a 45-degree pitch angle.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.5, teeth_number=35, pitch_angle=45.0, helix_angle=15.0)"},
-    {"prompt": "A BevelGear with custom angles: root offset 2 degrees, face offset -1 degree. It has 24 teeth, module 1.75, and a pitch angle of 40 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.75, teeth_number=24, pitch_angle=40.0, root_angle_offset=2.0, face_angle_offset=-1.0)"},
-    {"prompt": "Generate a large BevelGear with 50 teeth, a 3.0 module, a 15mm bore, and a pitch angle of 75 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=3.0, teeth_number=50, pitch_angle=75.0, bore_d=15.0)"},
-    {"prompt": "A simple BevelGear with 20 teeth, 1.0 module, and a 35-degree pitch angle.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.0, teeth_number=20, pitch_angle=35.0, simple=True)"},
-    {"prompt": "Create a BevelGear with a 10mm face width, 40 teeth, module 2.0, and a pitch angle of 55 degrees.", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=40, pitch_angle=55.0, face_width=10.0)"},
-    {"prompt": "BevelGear for a 4:1 reduction, pinion has 12 teeth, module 1.5. What's the pitch angle?", "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.5, teeth_number=12, pitch_angle=14.04)"},
-    {"prompt": "Generate a 350mm long RackGear with a 2.5 module and 25mm width.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.5, length=350.0, width=25.0)"},
-    {"prompt": "A simple RackGear, 100mm long, 1.0 module, 10mm wide.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.0, length=100.0, width=10.0, simple=True)"},
-    {"prompt": "Create a helical RackGear, right-handed with a 25-degree helix. Make it 280mm long, module 2.0, and 22mm wide.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=280.0, width=22.0, helix_angle=25.0, right_hand=True)"},
-    {"prompt": "I need a left-handed helical RackGear with a -12 degree helix. Length 180mm, module 1.5, width 15mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.5, length=180.0, width=15.0, helix_angle=-12.0, right_hand=False)"},
-    {"prompt": "Design a RackGear with a specific height of 18mm. Use a 2.0 module, 250mm length, and 20mm width.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=250.0, width=20.0, height=18.0)"},
-    {"prompt": "A short, fine-pitch RackGear. 75mm long, module 0.6, width 7mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=0.6, length=75.0, width=7.0)"},
-    {"prompt": "Generate a simple left-handed helical RackGear, -15 degree helix, 150mm length, 1.25 module, 14mm width.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.25, length=150.0, width=14.0, helix_angle=-15.0, right_hand=False, simple=True)"},
-    {"prompt": "Create a RackGear with a custom tooth profile: addendum 1.2, dedendum 1.4. Module 2.5, length 320mm, width 28mm.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.5, length=320.0, width=28.0, addendum_coeff=1.2, dedendum_coeff=1.4)"},
-    {"prompt": "A very long RackGear, 600mm, with a 3.0 module, 30mm width, and 25mm height.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=3.0, length=600.0, width=30.0, height=25.0)"},
-    {"prompt": "Make a wide RackGear, 40mm width, 400mm length, and 2.5 module.", "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.5, length=400.0, width=40.0)"},
-    {"prompt": "A SpurGear with 27 teeth, 1.5 module, and a width of 16mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=27, width=16.0)"},
-    {"prompt": "Generate a SpurGear that has a 10mm bore, 48 teeth, a 2.0 module, and a width of 22mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=48, width=22.0, bore_d=10.0)"},
-    {"prompt": "Create a simple SpurGear with 11 teeth, 0.6 module, and 6mm width.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.6, teeth_number=11, width=6.0, simple=True)"},
-    {"prompt": "Design a SpurGear with a 50mm hub, 70 teeth, module 3.5, a 35mm width, and a bore of 25mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.5, teeth_number=70, width=35.0, bore_d=25.0, hub_d=50.0)"},
-    {"prompt": "I need a SpurGear with a 6x4mm keyway. It has 58 teeth, 2.8 module, 28mm width, and a 18mm bore.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.8, teeth_number=58, width=28.0, bore_d=18.0, keyway=(6.0, 4.0))"},
-    {"prompt": "A SpurGear with a 14.5 degree pressure angle, 52 teeth, module 2.5, and a width of 25.0.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=52, width=25.0, pressure_angle=14.5)"},
-    {"prompt": "Generate a SpurGear with an asymmetric hub: 45mm diameter, 10mm on side A, 5mm on side B. The gear has 38 teeth, a 2.0 module, and is 20mm wide.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=38, width=20.0, hub_d=45.0, hub_length_a=10.0, hub_length_b=5.0)"},
-    {"prompt": "I want a SpurGear with a modified tooth profile: addendum 1.25, dedendum 1.5. It should have 30 teeth, a 2.0 module, and a 20mm width.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=30, width=20.0, addendum_coeff=1.25, dedendum_coeff=1.5)"},
-    {"prompt": "Create a very wide SpurGear with a 60mm width, 110 teeth, a 5.0 module, and a 35mm bore.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=5.0, teeth_number=110, width=60.0, bore_d=35.0)"},
-    {"prompt": "A tiny SpurGear for a watch mechanism: 8 teeth, 0.2 module, 2mm width, 1mm bore.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.2, teeth_number=8, width=2.0, bore_d=1.0)"},
-    {"prompt": "Create a detailed SpurGear: 36 teeth, 1.75 module, 18mm width, 8mm bore, 20mm hub, 3x2mm keyway.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.75, teeth_number=36, width=18.0, bore_d=8.0, hub_d=20.0, keyway=(3.0, 2.0))"},
-    {"prompt": "Just a SpurGear with no hub or bore: 25 teeth, module 2.0, width 15mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=25, width=15.0, simple=True)"},
-    {"prompt": "A SpurGear where the hub is flush with the gear face on one side. Hub is 30mm diameter, 10mm long. Gear: 30 teeth, module 2.0, width 20mm, bore 12mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=30, width=20.0, bore_d=12.0, hub_d=30.0, hub_length_a=10.0, hub_length_b=0.0)"},
-    {"prompt": "Large industrial SpurGear: 250 teeth, module 6.0, width 80mm, bore 50mm.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=6.0, teeth_number=250, width=80.0, bore_d=50.0)"},
-    {"prompt": "I need a SpurGear with a high addendum of 1.3. It has 22 teeth, a 1.25 module, and is 12mm wide.", "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.25, teeth_number=22, width=12.0, addendum_coeff=1.3)"},
-    {"prompt": "A right-handed HelicalGear with a 18-degree helix, 38 teeth, module 2.0, and a width of 25.0.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=38, width=25.0, helix_angle=18.0, right_hand=True)"},
-    {"prompt": "Generate a left-handed HelicalGear with a -25 degree helix. Give it 55 teeth, a 3.0 module, 35mm width, and a 20mm bore.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=3.0, teeth_number=55, width=35.0, helix_angle=-25.0, right_hand=False, bore_d=20.0)"},
-    {"prompt": "A simple HelicalGear, 19 teeth, module 1.0, width 12mm, with a steep 35-degree helix.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=19, width=12.0, helix_angle=35.0, simple=True)"},
-    {"prompt": "Design a HelicalGear with a 30mm hub, a 15mm bore, and a 5x3mm keyway. Use 45 teeth, module 2.5, width 30mm, and a 22-degree helix.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.5, teeth_number=45, width=30.0, helix_angle=22.0, bore_d=15.0, hub_d=30.0, keyway=(5.0, 3.0))"},
-    {"prompt": "Create a HelicalGear with a custom 22.5-degree pressure angle. It has 33 teeth, a 1.75 module, 20mm width, and a 20-degree helix.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.75, teeth_number=33, width=20.0, pressure_angle=22.5, helix_angle=20.0)"},
-    {"prompt": "A right-handed HelicalGear with a hub on both sides: 22mm diameter, 6mm length each. Gear specs: 30 teeth, module 1.5, width 18mm, helix 15 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=30, width=18.0, helix_angle=15.0, right_hand=True, hub_d=22.0, hub_length_a=6.0, hub_length_b=6.0)"},
-    {"prompt": "Generate a heavy-duty HelicalGear with 80 teeth, module 4.0, width 60mm, a 28-degree helix, and a 30mm bore.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=4.0, teeth_number=80, width=60.0, helix_angle=28.0, bore_d=30.0)"},
-    {"prompt": "Make a HelicalGear with a modified tooth profile: addendum 1.1, dedendum 1.25. Use 26 teeth, module 1.25, width 15mm, and a helix of 22 degrees.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.25, teeth_number=26, width=15.0, helix_angle=22.0, addendum_coeff=1.1, dedendum_coeff=1.25)"},
-    {"prompt": "A simple left-handed HelicalGear with 28 teeth, 22mm width, module 1.75, and a -15-degree helix angle.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.75, teeth_number=28, width=22.0, helix_angle=-15.0, right_hand=False, simple=True)"},
-    {"prompt": "I need a fine-pitch, right-handed HelicalGear. 14 teeth, 0.5 module, 6mm width, 30-degree helix, 2.5mm bore.", "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.5, teeth_number=14, width=6.0, helix_angle=30.0, right_hand=True, bore_d=2.5)"},
-    {"prompt": "A HerringboneGear with a 3.0mm central gap, 38 teeth, module 1.75, width 40mm, and a 22-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.75, teeth_number=38, width=40.0, helix_angle=22.0, gap=3.0)"},
-    {"prompt": "Generate a HerringboneGear with no gap (gap=0). It has 50 teeth, a 2.5 module, 50mm width, and a 30-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=50, width=50.0, helix_angle=30.0, gap=0.0)"},
-    {"prompt": "I need a simple HerringboneGear with a 2.0mm gap, 26 teeth, module 1.25, width 30mm, and a 18-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.25, teeth_number=26, width=30.0, helix_angle=18.0, gap=2.0, simple=True)"},
-    {"prompt": "Create a HerringboneGear with a 16mm bore and a 35mm hub. Use 44 teeth, module 2.25, width 50mm, helix 28 degrees, and a 4mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.25, teeth_number=44, width=50.0, helix_angle=28.0, gap=4.0, bore_d=16.0, hub_d=35.0)"},
-    {"prompt": "Design a very large HerringboneGear: 150 teeth, module 6.0, width 150mm, helix 35 degrees, 10mm gap, and a 50mm bore.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=6.0, teeth_number=150, width=150.0, helix_angle=35.0, gap=10.0, bore_d=50.0)"},
-    {"prompt": "A HerringboneGear with a keyway of 8x5mm. It has 65 teeth, module 3.5, width 70mm, a 30-degree helix, a 25mm bore, and a 5mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=3.5, teeth_number=65, width=70.0, helix_angle=30.0, gap=5.0, bore_d=25.0, keyway=(8.0, 5.0))"},
-    {"prompt": "A HerringboneGear with an asymmetric hub, 40mm diameter, 12mm long on side A, flush on side B. Specs: 40 teeth, module 2.0, width 45mm, helix 25 deg, gap 3mm, bore 18mm.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=40, width=45.0, helix_angle=25.0, gap=3.0, bore_d=18.0, hub_d=40.0, hub_length_a=12.0, hub_length_b=0.0)"},
-    {"prompt": "Generate a HerringboneGear with a tiny 0.1mm gap. Use 18 teeth, module 0.7, width 15mm, and a 10-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=0.7, teeth_number=18, width=15.0, helix_angle=10.0, gap=0.1)"},
-    {"prompt": "Simple HerringboneGear, 32 teeth, 35mm width, 1.5 module, 20 degree helix, 2.0mm gap.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=32, width=35.0, helix_angle=20.0, gap=2.0, simple=True)"},
-    {"prompt": "Make a HerringboneGear with an extra wide 12mm gap, 70 teeth, module 3.0, width 80mm, and a 25-degree helix.", "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=3.0, teeth_number=70, width=80.0, helix_angle=25.0, gap=12.0)"},
-    {"prompt": "Create an internal RingGear with 95 teeth, module 1.75, and a width of 20mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.75, teeth_number=95, width=20.0)"},
-    {"prompt": "I need a simple RingGear for a small gearbox, with 45 teeth, a 0.8 module, and a 10mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=0.8, teeth_number=45, width=10.0, simple=True)"},
-    {"prompt": "Generate a RingGear with an outer diameter of 280mm. Use 100 teeth, module 2.25, and a width of 28mm.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.25, teeth_number=100, width=28.0, outer_d=280.0)"},
-    {"prompt": "Design a helical RingGear with a 12-degree helix. It needs 110 teeth, a 2.5 module, and a 30mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.5, teeth_number=110, width=30.0, helix_angle=12.0)"},
-    {"prompt": "A RingGear with an external hub: 320mm hub diameter, 300mm outer diameter. It has 125 teeth, module 2.0, and a 35mm width.", "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=125, width=35.0, outer_d=300.0, hub_d=320.0)"}
+  {
+    "prompt": "Create a SpurGear with module 1.0, 20 teeth, and a width of 10.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.0, teeth_number=20, width=10.0)"
+  },
+  {
+    "prompt": "Generate a SpurGear having 15 teeth, a module of 1.5, and a width of 12.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=15, width=12.0)"
+  },
+  {
+    "prompt": "I need a SpurGear with the following specifications: module=2.0, teeth_number=30, width=15.0, and a bore diameter of 5.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=30, width=15.0, bore_d=5.0)"
+  },
+  {
+    "prompt": "Can you make a SpurGear with 25 teeth, module 0.8, width 8.0, and pressure angle of 20 degrees?",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.8, teeth_number=25, width=8.0, pressure_angle=20.0)"
+  },
+  {
+    "prompt": "Design a SpurGear with a module of 2.5, 40 teeth, a width of 20.0, and a hub diameter of 10.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=40, width=20.0, hub_d=10.0)"
+  },
+  {
+    "prompt": "Create a SpurGear with 18 teeth, module 1.2, width 9.0, and a hub on both sides with a diameter of 8.0 and length of 3.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.2, teeth_number=18, width=9.0, hub_d=8.0, hub_length_a=3.0, hub_length_b=3.0)"
+  },
+  {
+    "prompt": "Generate a SpurGear with a module of 3.0, 50 teeth, a width of 25.0, and a keyway of size (2.0, 1.0).",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.0, teeth_number=50, width=25.0, keyway=(2.0, 1.0))"
+  },
+  {
+    "prompt": "I want a SpurGear with 22 teeth, module 1.8, width 14.0, and an addendum coefficient of 1.1.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.8, teeth_number=22, width=14.0, addendum_coeff=1.1)"
+  },
+  {
+    "prompt": "Create a SpurGear with a dedendum coefficient of 1.3, 35 teeth, module 2.2, and width 18.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.2, teeth_number=35, width=18.0, dedendum_coeff=1.3)"
+  },
+  {
+    "prompt": "Design a simple SpurGear with module 0.5, 12 teeth, and a width of 5.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.5, teeth_number=12, width=5.0, simple=True)"
+  },
+  {
+    "prompt": "Generate a HelicalGear with module 1.0, 20 teeth, width 10.0, and a helix angle of 20 degrees.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=20, width=10.0, helix_angle=20.0)"
+  },
+  {
+    "prompt": "Create a right-handed HelicalGear with 30 teeth, module 1.5, width 15.0, and a 25-degree helix angle.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=30, width=15.0, helix_angle=25.0, right_hand=True)"
+  },
+  {
+    "prompt": "I need a left-handed HelicalGear with module 2.0, 40 teeth, width 20.0, and a helix angle of -30 degrees.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=40, width=20.0, helix_angle=-30.0, right_hand=False)"
+  },
+  {
+    "prompt": "Generate a HelicalGear with 25 teeth, module 1.2, width 12.0, a helix angle of 15.0, and a bore diameter of 6.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.2, teeth_number=25, width=12.0, helix_angle=15.0, bore_d=6.0)"
+  },
+  {
+    "prompt": "Design a HelicalGear with a pressure angle of 25 degrees, module 1.8, 35 teeth, width 18.0, and helix angle 22.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.8, teeth_number=35, width=18.0, pressure_angle=25.0, helix_angle=22.0)"
+  },
+  {
+    "prompt": "Create a HelicalGear with a hub diameter of 12.0, module 2.5, 50 teeth, width 25.0, and helix angle of 18.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.5, teeth_number=50, width=25.0, helix_angle=18.0, hub_d=12.0)"
+  },
+  {
+    "prompt": "Generate a HelicalGear with a keyway of size (3.0, 1.5), module 2.0, 45 teeth, width 22.0, and helix angle 20.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=45, width=22.0, helix_angle=20.0, keyway=(3.0, 1.5))"
+  },
+  {
+    "prompt": "I want a simple HelicalGear with module 0.7, 18 teeth, width 7.0, and a helix angle of 10.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.7, teeth_number=18, width=7.0, helix_angle=10.0, simple=True)"
+  },
+  {
+    "prompt": "Design a HelicalGear with an addendum coefficient of 1.05 and a dedendum coefficient of 1.2, having 28 teeth, module 1.5, width 14.0, and helix angle 12.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=28, width=14.0, helix_angle=12.0, addendum_coeff=1.05, dedendum_coeff=1.2)"
+  },
+  {
+    "prompt": "Create a left-handed HelicalGear with a hub on one side of diameter 10.0 and length 4.0. It should have a module of 1.6, 32 teeth, a width of 16.0, and a helix angle of -18.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.6, teeth_number=32, width=16.0, helix_angle=-18.0, right_hand=False, hub_d=10.0, hub_length_a=4.0)"
+  },
+  {
+    "prompt": "Generate a HerringboneGear with module 1.0, 20 teeth, width 20.0, and a helix angle of 20 degrees.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.0, teeth_number=20, width=20.0, helix_angle=20.0)"
+  },
+  {
+    "prompt": "Create a HerringboneGear with 30 teeth, module 1.5, width 30.0, and a 25-degree helix angle.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=30, width=30.0, helix_angle=25.0)"
+  },
+  {
+    "prompt": "I need a HerringboneGear with module 2.0, 40 teeth, width 40.0, a helix angle of 30 degrees, and a bore diameter of 10.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=40, width=40.0, helix_angle=30.0, bore_d=10.0)"
+  },
+  {
+    "prompt": "Generate a HerringboneGear with 25 teeth, module 1.2, width 24.0, a helix angle of 15.0, and a central gap of 2.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.2, teeth_number=25, width=24.0, helix_angle=15.0, gap=2.0)"
+  },
+  {
+    "prompt": "Design a HerringboneGear with a pressure angle of 22 degrees, module 1.8, 35 teeth, width 36.0, and helix angle 22.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.8, teeth_number=35, width=36.0, pressure_angle=22.0, helix_angle=22.0)"
+  },
+  {
+    "prompt": "Create a HerringboneGear with a hub diameter of 15.0, module 2.5, 50 teeth, width 50.0, and helix angle of 18.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=50, width=50.0, helix_angle=18.0, hub_d=15.0)"
+  },
+  {
+    "prompt": "Generate a HerringboneGear with a keyway of size (4.0, 2.0), module 2.0, 45 teeth, width 44.0, and helix angle 20.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=45, width=44.0, helix_angle=20.0, keyway=(4.0, 2.0))"
+  },
+  {
+    "prompt": "I want a simple HerringboneGear with module 0.7, 18 teeth, width 14.0, and a helix angle of 10.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=0.7, teeth_number=18, width=14.0, helix_angle=10.0, simple=True)"
+  },
+  {
+    "prompt": "Design a HerringboneGear with an addendum coefficient of 1.1 and a dedendum coefficient of 1.3, having 28 teeth, module 1.5, width 28.0, and helix angle 12.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=28, width=28.0, helix_angle=12.0, addendum_coeff=1.1, dedendum_coeff=1.3)"
+  },
+  {
+    "prompt": "Create a HerringboneGear with a hub on both sides of diameter 12.0 and length 5.0. It should have a module of 1.6, 32 teeth, a width of 32.0, and a helix angle of 18.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.6, teeth_number=32, width=32.0, helix_angle=18.0, hub_d=12.0, hub_length_a=5.0, hub_length_b=5.0)"
+  },
+  {
+    "prompt": "Generate a RingGear with module 1.0, 40 teeth, and a width of 10.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.0, teeth_number=40, width=10.0)"
+  },
+  {
+    "prompt": "Create a RingGear having 50 teeth, a module of 1.5, and a width of 12.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.5, teeth_number=50, width=12.0)"
+  },
+  {
+    "prompt": "I need a RingGear with the following specifications: module=2.0, teeth_number=60, width=15.0, and an outer diameter of 125.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=60, width=15.0, outer_d=125.0)"
+  },
+  {
+    "prompt": "Can you make a RingGear with 45 teeth, module 1.2, width 10.0, and pressure angle of 20 degrees?",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.2, teeth_number=45, width=10.0, pressure_angle=20.0)"
+  },
+  {
+    "prompt": "Design a RingGear with a module of 2.5, 80 teeth, a width of 20.0, and a hub diameter of 210.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.5, teeth_number=80, width=20.0, hub_d=210.0)"
+  },
+  {
+    "prompt": "Create a RingGear with 55 teeth, module 1.8, width 14.0, and a hub on one side with a diameter of 105.0 and length of 5.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.8, teeth_number=55, width=14.0, hub_d=105.0, hub_length_a=5.0)"
+  },
+  {
+    "prompt": "Generate a helical RingGear with module 1.0, 40 teeth, width 10.0, and a helix angle of 15 degrees.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.0, teeth_number=40, width=10.0, helix_angle=15.0)"
+  },
+  {
+    "prompt": "I want a RingGear with 65 teeth, module 2.2, width 18.0, and an addendum coefficient of 1.15.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.2, teeth_number=65, width=18.0, addendum_coeff=1.15)"
+  },
+  {
+    "prompt": "Create a RingGear with a dedendum coefficient of 1.35, 70 teeth, module 2.0, and width 16.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=70, width=16.0, dedendum_coeff=1.35)"
+  },
+  {
+    "prompt": "Design a simple RingGear with module 0.8, 30 teeth, and a width of 8.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=0.8, teeth_number=30, width=8.0, simple=True)"
+  },
+  {
+    "prompt": "Generate a BevelGear with module 1.0, 20 teeth, and a pitch angle of 45 degrees.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.0, teeth_number=20, pitch_angle=45.0)"
+  },
+  {
+    "prompt": "Create a BevelGear having 25 teeth, a module of 1.5, and a pitch angle of 30 degrees.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.5, teeth_number=25, pitch_angle=30.0)"
+  },
+  {
+    "prompt": "I need a BevelGear with the following specifications: module=2.0, teeth_number=30, pitch_angle=60.0, and a bore diameter of 8.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=30, pitch_angle=60.0, bore_d=8.0)"
+  },
+  {
+    "prompt": "Can you make a BevelGear with 18 teeth, module 1.2, pitch angle 50.0, and pressure angle of 20 degrees?",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.2, teeth_number=18, pitch_angle=50.0, pressure_angle=20.0)"
+  },
+  {
+    "prompt": "Design a BevelGear with a module of 2.5, 35 teeth, a pitch angle of 40.0, and a face width of 10.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.5, teeth_number=35, pitch_angle=40.0, face_width=10.0)"
+  },
+  {
+    "prompt": "Create a BevelGear with a root angle offset of 5.0 degrees, 22 teeth, module 1.8, and pitch angle 55.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.8, teeth_number=22, pitch_angle=55.0, root_angle_offset=5.0)"
+  },
+  {
+    "prompt": "Generate a BevelGear with a face angle offset of -2.0 degrees, module 2.2, 28 teeth, and pitch angle 35.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.2, teeth_number=28, pitch_angle=35.0, face_angle_offset=-2.0)"
+  },
+  {
+    "prompt": "I want a BevelGear with a keyway of size (2.5, 1.2), 26 teeth, module 2.0, and pitch angle 48.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=26, pitch_angle=48.0, keyway=(2.5, 1.2))"
+  },
+  {
+    "prompt": "Create a helical BevelGear with module 1.0, 20 teeth, pitch angle 45 degrees, and a helix angle of 15 degrees.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.0, teeth_number=20, pitch_angle=45.0, helix_angle=15.0)"
+  },
+  {
+    "prompt": "Design a simple BevelGear with module 0.9, 15 teeth, and a pitch angle of 40.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=0.9, teeth_number=15, pitch_angle=40.0, simple=True)"
+  },
+  {
+    "prompt": "Generate a RackGear with module 1.0, a length of 100.0, and a width of 10.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.0, length=100.0, width=10.0)"
+  },
+  {
+    "prompt": "Create a RackGear of length 120.0, width 12.0, and a module of 1.5.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.5, length=120.0, width=12.0)"
+  },
+  {
+    "prompt": "I need a RackGear with the following specifications: module=2.0, length=150.0, width=15.0, and a height of 10.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=150.0, width=15.0, height=10.0)"
+  },
+  {
+    "prompt": "Can you make a RackGear of length 80.0, width 8.0, module 0.8, and a pressure angle of 20 degrees?",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=0.8, length=80.0, width=8.0, pressure_angle=20.0)"
+  },
+  {
+    "prompt": "Design a helical RackGear with a module of 1.2, length 110.0, width 10.0, and a helix angle of 10 degrees.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.2, length=110.0, width=10.0, helix_angle=10.0)"
+  },
+  {
+    "prompt": "Create a right-handed helical RackGear of length 130.0, width 14.0, module 1.8, and a helix angle of 18.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.8, length=130.0, width=14.0, helix_angle=18.0, right_hand=True)"
+  },
+  {
+    "prompt": "Generate a left-handed helical RackGear with module 2.5, length 200.0, width 20.0, and a helix angle of -25.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.5, length=200.0, width=20.0, helix_angle=-25.0, right_hand=False)"
+  },
+  {
+    "prompt": "I want a RackGear with an addendum coefficient of 1.1, module 1.6, length 140.0, and width 16.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.6, length=140.0, width=16.0, addendum_coeff=1.1)"
+  },
+  {
+    "prompt": "Create a RackGear with a dedendum coefficient of 1.3, module 2.2, length 180.0, and width 18.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.2, length=180.0, width=18.0, dedendum_coeff=1.3)"
+  },
+  {
+    "prompt": "Design a simple RackGear with module 0.5, length 50.0, and a width of 5.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=0.5, length=50.0, width=5.0, simple=True)"
+  },
+  {
+    "prompt": "Create a SpurGear with a high tooth count of 100, module 0.5, and width 8.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.5, teeth_number=100, width=8.0)"
+  },
+  {
+    "prompt": "Generate a SpurGear with a fractional module of 1.25 and 32 teeth and a width of 10.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.25, teeth_number=32, width=10.0)"
+  },
+  {
+    "prompt": "I need a SpurGear with a very small module of 0.3, 10 teeth, and a width of 4.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.3, teeth_number=10, width=4.0)"
+  },
+  {
+    "prompt": "Can you make a SpurGear with an unusual pressure angle of 14.5 degrees, 48 teeth, module 2.0, and width 20.0?",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=48, width=20.0, pressure_angle=14.5)"
+  },
+  {
+    "prompt": "Design a SpurGear with a large bore of 20.0mm, 60 teeth, module 3.0, and width 30.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.0, teeth_number=60, width=30.0, bore_d=20.0)"
+  },
+  {
+    "prompt": "Create a SpurGear with a prominent hub of 25.0mm diameter and 10.0mm length on one side, with 45 teeth, module 2.5, and width 25.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=45, width=25.0, hub_d=25.0, hub_length_a=10.0)"
+  },
+  {
+    "prompt": "Generate a SpurGear with a rectangular keyway of 5.0mm by 3.0mm, 55 teeth, module 2.8, and width 28.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.8, teeth_number=55, width=28.0, keyway=(5.0, 3.0))"
+  },
+  {
+    "prompt": "I want a SpurGear with a custom addendum (1.2) and dedendum (1.4) coefficient, 28 teeth, module 1.5, and width 15.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=28, width=15.0, addendum_coeff=1.2, dedendum_coeff=1.4)"
+  },
+  {
+    "prompt": "Design a simplified SpurGear for visualization purposes with 16 teeth, module 1.0, and width 6.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.0, teeth_number=16, width=6.0, simple=True)"
+  },
+  {
+    "prompt": "Create a wide SpurGear with a width of 50.0mm, 80 teeth, and a module of 4.0.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=4.0, teeth_number=80, width=50.0)"
+  },
+  {
+    "prompt": "Generate a HelicalGear with a shallow helix angle of 5 degrees, 22 teeth, module 1.0, and width 10.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=22, width=10.0, helix_angle=5.0)"
+  },
+  {
+    "prompt": "Create a left-handed HelicalGear with a steep helix angle of -40 degrees, 50 teeth, module 2.0, and width 30.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=50, width=30.0, helix_angle=-40.0, right_hand=False)"
+  },
+  {
+    "prompt": "I need a HelicalGear with a keyway and a hub. Keyway size is (4.0, 2.5), hub diameter is 18.0mm. The gear has 38 teeth, module 1.8, width 20.0, and a helix angle of 28.0 degrees.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.8, teeth_number=38, width=20.0, helix_angle=28.0, hub_d=18.0, keyway=(4.0, 2.5))"
+  },
+  {
+    "prompt": "Design a HelicalGear with a non-standard pressure angle of 18.0 degrees, 33 teeth, module 1.6, width 18.0, and helix angle 22.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.6, teeth_number=33, width=18.0, pressure_angle=18.0, helix_angle=22.0)"
+  },
+  {
+    "prompt": "Generate a simple right-handed HelicalGear with 15 teeth, module 0.9, width 9.0, and helix angle 12.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.9, teeth_number=15, width=9.0, helix_angle=12.0, right_hand=True, simple=True)"
+  },
+  {
+    "prompt": "Create a HelicalGear with a custom tooth profile using addendum coefficient 1.15 and dedendum coefficient 1.35. It should have 26 teeth, module 1.4, width 16.0, and helix angle 16.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.4, teeth_number=26, width=16.0, helix_angle=16.0, addendum_coeff=1.15, dedendum_coeff=1.35)"
+  },
+  {
+    "prompt": "I want a HelicalGear with a hub on both sides. Hub diameter is 20.0mm, and each hub length is 8.0mm. The gear has 42 teeth, module 2.2, width 25.0, and helix angle 19.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.2, teeth_number=42, width=25.0, helix_angle=19.0, hub_d=20.0, hub_length_a=8.0, hub_length_b=8.0)"
+  },
+  {
+    "prompt": "Design a narrow HelicalGear with a width of 5.0mm, 18 teeth, module 0.8, and a helix angle of 8.0 degrees.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.8, teeth_number=18, width=5.0, helix_angle=8.0)"
+  },
+  {
+    "prompt": "Generate a large HelicalGear with 120 teeth, module 5.0, width 60.0, and a helix angle of 30.0.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=5.0, teeth_number=120, width=60.0, helix_angle=30.0)"
+  },
+  {
+    "prompt": "Create a HerringboneGear with a small gap of 1.0mm, 24 teeth, module 1.0, width 22.0, and a helix angle of 18.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.0, teeth_number=24, width=22.0, helix_angle=18.0, gap=1.0)"
+  },
+  {
+    "prompt": "Generate a HerringboneGear with no gap, 36 teeth, module 1.5, width 30.0, and a helix angle of 25.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=36, width=30.0, helix_angle=25.0, gap=0.0)"
+  },
+  {
+    "prompt": "I need a HerringboneGear with a large central gap of 5.0mm, 48 teeth, module 2.0, width 50.0, and a helix angle of 30.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=48, width=50.0, helix_angle=30.0, gap=5.0)"
+  },
+  {
+    "prompt": "Design a HerringboneGear with a bore and a hub. Bore diameter is 15.0mm, hub diameter is 25.0mm. The gear has 40 teeth, module 1.8, width 40.0, and a helix angle of 22.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.8, teeth_number=40, width=40.0, helix_angle=22.0, bore_d=15.0, hub_d=25.0)"
+  },
+  {
+    "prompt": "Create a simple HerringboneGear with 20 teeth, module 1.2, width 24.0, and helix angle 15.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.2, teeth_number=20, width=24.0, helix_angle=15.0, simple=True)"
+  },
+  {
+    "prompt": "Generate a HerringboneGear with a keyway and hubs on both sides. Keyway size is (5.0, 3.0), hub diameter is 30.0mm, and each hub length is 10.0mm. The gear has 55 teeth, module 2.5, width 55.0, and helix angle of 20.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=55, width=55.0, helix_angle=20.0, keyway=(5.0, 3.0), hub_d=30.0, hub_length_a=10.0, hub_length_b=10.0)"
+  },
+  {
+    "prompt": "I want a HerringboneGear with a custom tooth profile: addendum 1.1, dedendum 1.3. It should have 32 teeth, module 1.6, width 32.0, and a helix angle of 16.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.6, teeth_number=32, width=32.0, helix_angle=16.0, addendum_coeff=1.1, dedendum_coeff=1.3)"
+  },
+  {
+    "prompt": "Design a wide HerringboneGear with a width of 80.0mm, 100 teeth, module 4.0, and a helix angle of 35.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=4.0, teeth_number=100, width=80.0, helix_angle=35.0)"
+  },
+  {
+    "prompt": "Create a HerringboneGear with a non-standard pressure angle of 22.5 degrees, 28 teeth, module 1.5, width 30.0, and helix angle 18.0.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.5, teeth_number=28, width=30.0, pressure_angle=22.5, helix_angle=18.0)"
+  },
+  {
+    "prompt": "Generate a RingGear with a large number of teeth (120), module 1.0, and a width of 15.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.0, teeth_number=120, width=15.0)"
+  },
+  {
+    "prompt": "Create a RingGear with a very large outer diameter of 300.0mm, 100 teeth, and a module of 2.5.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.5, teeth_number=100, width=20.0, outer_d=300.0)"
+  },
+  {
+    "prompt": "I need a helical RingGear with a left-handed helix of -20 degrees, 80 teeth, module 2.0, and width 25.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.0, teeth_number=80, width=25.0, helix_angle=-20.0)"
+  },
+  {
+    "prompt": "Design a RingGear with a prominent hub on one side. Hub diameter is 250.0mm, hub length is 15.0mm. The gear has 90 teeth, module 2.2, and width 22.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=2.2, teeth_number=90, width=22.0, hub_d=250.0, hub_length_a=15.0)"
+  },
+  {
+    "prompt": "Generate a simple RingGear for a planetary system with 36 teeth, module 1.2, and width 12.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.2, teeth_number=36, width=12.0, simple=True)"
+  },
+  {
+    "prompt": "Create a RingGear with a custom tooth profile: addendum 1.05, dedendum 1.25. It should have 75 teeth, module 1.8, and width 18.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.8, teeth_number=75, width=18.0, addendum_coeff=1.05, dedendum_coeff=1.25)"
+  },
+  {
+    "prompt": "I want a RingGear with a non-standard pressure angle of 18 degrees, 68 teeth, module 1.6, and width 16.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=1.6, teeth_number=68, width=16.0, pressure_angle=18.0)"
+  },
+  {
+    "prompt": "Design a wide RingGear with a width of 40.0mm, 150 teeth, and a module of 3.0.",
+    "completion": "from cq_gears import RingGear\nresult = RingGear(module=3.0, teeth_number=150, width=40.0)"
+  },
+  {
+    "prompt": "Generate a BevelGear with a small number of teeth (12), module 1.0, and a pitch angle of 30 degrees.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.0, teeth_number=12, pitch_angle=30.0)"
+  },
+  {
+    "prompt": "Create a BevelGear with a large number of teeth (60), module 2.0, and a pitch angle of 60 degrees.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=60, pitch_angle=60.0)"
+  },
+  {
+    "prompt": "I need a helical BevelGear with a right-handed helix of 20 degrees, 30 teeth, module 1.5, and a pitch angle of 45 degrees.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.5, teeth_number=30, pitch_angle=45.0, helix_angle=20.0)"
+  },
+  {
+    "prompt": "Design a BevelGear with a keyway and a bore. Keyway size is (3.0, 1.8), bore diameter is 10.0mm. The gear has 24 teeth, module 1.8, and a pitch angle of 50.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.8, teeth_number=24, pitch_angle=50.0, bore_d=10.0, keyway=(3.0, 1.8))"
+  },
+  {
+    "prompt": "Generate a simple BevelGear with 16 teeth, module 1.2, and a pitch angle of 40.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.2, teeth_number=16, pitch_angle=40.0, simple=True)"
+  },
+  {
+    "prompt": "Create a BevelGear with a custom face width of 12.0mm, 28 teeth, module 2.2, and a pitch angle of 35.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.2, teeth_number=28, pitch_angle=35.0, face_width=12.0)"
+  },
+  {
+    "prompt": "I want a BevelGear with a non-standard pressure angle of 16.0 degrees, 20 teeth, module 1.4, and pitch angle 55.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=1.4, teeth_number=20, pitch_angle=55.0, pressure_angle=16.0)"
+  },
+  {
+    "prompt": "Design a BevelGear with specified root and face angle offsets of 3.0 and -1.0 degrees respectively. The gear has 25 teeth, module 2.0, and a pitch angle of 48.0.",
+    "completion": "from cq_gears import BevelGear\nresult = BevelGear(module=2.0, teeth_number=25, pitch_angle=48.0, root_angle_offset=3.0, face_angle_offset=-1.0)"
+  },
+  {
+    "prompt": "Generate a short RackGear with a length of 50.0mm, module 1.0, and width 8.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.0, length=50.0, width=8.0)"
+  },
+  {
+    "prompt": "Create a very long RackGear with a length of 500.0mm, module 2.0, and width 20.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.0, length=500.0, width=20.0)"
+  },
+  {
+    "prompt": "I need a helical RackGear with a steep helix angle of 30 degrees, module 1.5, length 200.0, and width 15.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.5, length=200.0, width=15.0, helix_angle=30.0)"
+  },
+  {
+    "prompt": "Design a RackGear with a custom height of 12.0mm, module 1.8, length 160.0, and width 18.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.8, length=160.0, width=18.0, height=12.0)"
+  },
+  {
+    "prompt": "Generate a simple left-handed helical RackGear with a helix angle of -15 degrees, module 1.2, length 120.0, and width 12.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.2, length=120.0, width=12.0, helix_angle=-15.0, right_hand=False, simple=True)"
+  },
+  {
+    "prompt": "Create a RackGear with a non-standard pressure angle of 15.0 degrees, module 2.2, length 220.0, and width 22.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.2, length=220.0, width=22.0, pressure_angle=15.0)"
+  },
+  {
+    "prompt": "I want a RackGear with custom addendum (1.1) and dedendum (1.3) coefficients, module 1.4, length 140.0, and width 14.0.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=1.4, length=140.0, width=14.0, addendum_coeff=1.1, dedendum_coeff=1.3)"
+  },
+  {
+    "prompt": "Design a wide RackGear with a width of 30.0mm, module 2.5, and a length of 250.0mm.",
+    "completion": "from cq_gears import RackGear\nresult = RackGear(module=2.5, length=250.0, width=30.0)"
+  },
+  {
+    "prompt": "Create a SpurGear for a high-torque transmission with module 3.0, 60 teeth, a wide face of 40.0mm, a 15mm bore for the shaft, a 30mm hub, and a 5x3mm keyway.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=3.0, teeth_number=60, width=40.0, bore_d=15.0, hub_d=30.0, keyway=(5.0, 3.0))"
+  },
+  {
+    "prompt": "I need a small plastic SpurGear with a 0.5 module, 8 teeth, a width of 5mm, and a simple profile for 3D printing.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=0.5, teeth_number=8, width=5.0, simple=True)"
+  },
+  {
+    "prompt": "Generate a SpurGear with an asymmetric hub. The gear has 35 teeth, a 2.0 module, 20mm width. The hub is 40mm in diameter, 10mm long on one side and 5mm on the other. It also needs a 12mm central hole.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=35, width=20.0, hub_d=40.0, bore_d=12.0, hub_length_a=10.0, hub_length_b=5.0)"
+  },
+  {
+    "prompt": "Can you make a SpurGear with a non-standard 14.5 degree pressure angle? It should have 48 teeth, a module of 2.5, and a width of 25mm.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.5, teeth_number=48, width=25.0, pressure_angle=14.5)"
+  },
+  {
+    "prompt": "Design a large SpurGear with 150 teeth, module 4.0, width 50mm, and a bore of 30mm.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=4.0, teeth_number=150, width=50.0, bore_d=30.0)"
+  },
+  {
+    "prompt": "I want a SpurGear with a modified tooth profile. Use an addendum coefficient of 1.2 and a dedendum of 1.4. The gear has 24 teeth, a 1.5 module, and is 15mm wide.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.5, teeth_number=24, width=15.0, addendum_coeff=1.2, dedendum_coeff=1.4)"
+  },
+  {
+    "prompt": "Make me a SpurGear with 28 teeth, module 2, width 18mm, but with no central body, just the teeth.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=2.0, teeth_number=28, width=18.0, simple=True)"
+  },
+  {
+    "prompt": "Give me a SpurGear where the hub is the same size as the root diameter. Module 1.0, 30 teeth, width 12mm, bore 8mm.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.0, teeth_number=30, width=12.0, bore_d=8.0, hub_d=28.0)"
+  },
+  {
+    "prompt": "Create a detailed SpurGear with 42 teeth, module 1.75, width 20mm, a 10mm bore, a 25mm hub, and a 4x2.5mm keyway.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.75, teeth_number=42, width=20.0, bore_d=10.0, hub_d=25.0, keyway=(4.0, 2.5))"
+  },
+  {
+    "prompt": "A simple SpurGear please: 18 teeth, 1.25 module, 10mm width.",
+    "completion": "from cq_gears import SpurGear\nresult = SpurGear(module=1.25, teeth_number=18, width=10.0)"
+  },
+  {
+    "prompt": "Generate a left-handed HelicalGear with a steep 40-degree helix angle. It has 45 teeth, a 2.0 module, and is 35mm wide.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=45, width=35.0, helix_angle=-40.0, right_hand=False)"
+  },
+  {
+    "prompt": "I need a right-handed HelicalGear for a high-speed application. Use a 15-degree helix angle, 32 teeth, 1.5 module, 25mm width, a 10mm shaft opening with a 3x2mm keyway, and a 20mm hub.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.5, teeth_number=32, width=25.0, helix_angle=15.0, right_hand=True, bore_d=10.0, hub_d=20.0, keyway=(3.0, 2.0))"
+  },
+  {
+    "prompt": "Create a HelicalGear with a very shallow 5-degree helix. Give it 25 teeth, module 1.0, width 15mm, and render it as a simple object.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=25, width=15.0, helix_angle=5.0, simple=True)"
+  },
+  {
+    "prompt": "Design a HelicalGear with an asymmetric hub. 38 teeth, module 1.75, width 22mm, helix 20 deg. The hub is 30mm diameter, 8mm long on side A and 12mm on side B. Bore is 14mm.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.75, teeth_number=38, width=22.0, helix_angle=20.0, bore_d=14.0, hub_d=30.0, hub_length_a=8.0, hub_length_b=12.0)"
+  },
+  {
+    "prompt": "Make a left-handed HelicalGear. Explicitly set right_hand to False. Module 2.5, 50 teeth, width 40mm, helix angle 30 degrees.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.5, teeth_number=50, width=40.0, helix_angle=30.0, right_hand=False)"
+  },
+  {
+    "prompt": "Generate a HelicalGear with a custom pressure angle of 22.5 degrees. 28 teeth, 1.25 module, 18mm width, 18-degree helix.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.25, teeth_number=28, width=18.0, pressure_angle=22.5, helix_angle=18.0)"
+  },
+  {
+    "prompt": "I need a compact HelicalGear. Module 0.8, 12 teeth, width 8mm, helix 25 deg, 4mm bore.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=0.8, teeth_number=12, width=8.0, helix_angle=25.0, bore_d=4.0)"
+  },
+  {
+    "prompt": "Can you create a HelicalGear with modified addendum of 1.1 and dedendum of 1.3? Use 36 teeth, module 2.0, width 28mm, and a helix of 22 degrees.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=2.0, teeth_number=36, width=28.0, helix_angle=22.0, addendum_coeff=1.1, dedendum_coeff=1.3)"
+  },
+  {
+    "prompt": "A simple right-handed HelicalGear for a prototype. 20 teeth, module 1.0, width 12mm, helix 10 degrees.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=1.0, teeth_number=20, width=12.0, helix_angle=10.0, right_hand=True, simple=True)"
+  },
+  {
+    "prompt": "Design a robust HelicalGear: 60 teeth, module 3.0, width 45mm, helix 25 deg, 20mm bore, 40mm hub, 6x4mm keyway.",
+    "completion": "from cq_gears import HelicalGear\nresult = HelicalGear(module=3.0, teeth_number=60, width=45.0, helix_angle=25.0, bore_d=20.0, hub_d=40.0, keyway=(6.0, 4.0))"
+  },
+  {
+    "prompt": "A HerringboneGear with zero gap. 30 teeth, module 2.0, width 40mm, and a helix angle of 30 degrees.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.0, teeth_number=30, width=40.0, helix_angle=30.0, gap=0.0)"
+  },
+  {
+    "prompt": "I need a HerringboneGear with a wide 8mm central gap for a tool to pass through. It should have 50 teeth, a 2.5 module, 60mm total width, and a 25-degree helix.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=2.5, teeth_number=50, width=60.0, helix_angle=25.0, gap=8.0)"
+  },
+  {
+    "prompt": "Generate a complete HerringboneGear model with a 12mm bore, a 28mm hub, and a 4x2.5mm keyway. Use 36 teeth, 1.75 module, 45mm width, 20-degree helix, and a standard 2mm gap.",
+    "completion": "from cq_gears import HerringboneGear\nresult = HerringboneGear(module=1.75, teeth_number=36, width=45.0, helix_angle=20.0, bore_d=12.0, hub_d=28.0, keyway=(4.0, 2.5), gap=2.0)"
+  }
 ]
