@@ -1,2 +1,3 @@
-from cq_warehouse import fastener
-result = fastener.button_head_screw(size="M18-2.5", length=3, fastener_type="iso7380_1", hand="right", simple=True)
+from cq_gears import SpurGear
+
+result = SpurGear(module=1.0, teeth_number=20, width=10.0)

@@ -18,8 +18,22 @@ function App() {
   const [status, setStatus] = useState<GenerationStatus>('idle');
   const [error, setError] = useState<string | null>(null);
   const [showViewer, setShowViewer] = useState<boolean>(true);
+  const [supportedLibraries, setSupportedLibraries] = useState<string[]>([]);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  // handles polling
+  useEffect(() => {
+    const fetchLibraries = async () => {
+      try {
+        const response = await fetch('/api/libraries');
+        const data = await response.json();
+        setSupportedLibraries(data.libraries || []);
+      } catch (err) {
+        console.error('Failed to fetch supported libraries:', err);
+      }
+    };
+    fetchLibraries();
+  }, []);
+
   useEffect(() => {
     // only poll if status is 'pending' or 'processing'
     if (status !== 'pending' && status !== 'processing') {
@@ -37,11 +51,11 @@ function App() {
             stl: data.stl_filename ? `/output.stl?filename=${encodeURIComponent(data.stl_filename)}` : '',
             step: data.step_filename ? `/output.step?filename=${encodeURIComponent(data.step_filename)}` : '',
           });
-          clearInterval(intervalId); // Stop polling
+          clearInterval(intervalId);
         } else if (data.status === 'error') {
           setStatus('error');
           setError(data.error_message || 'An unknown error occurred during generation.');
-          clearInterval(intervalId); // Stop polling
+          clearInterval(intervalId);
         } else {
           // Keep polling if status is 'pending' or 'processing'
           setStatus(data.status);
@@ -49,17 +63,18 @@ function App() {
       } catch (err) {
         setStatus('error');
         setError('Failed to get generation status.');
-        clearInterval(intervalId); // Stop polling on fetch failure
+        clearInterval(intervalId);
       }
-    }, 2000); // Poll every 2 seconds
+    }, 2000);
 
     // Cleanup function to clear the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, [status]); // This effect re-runs whenever the 'status' changes
+  }, [status]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setStatus('pending'); // Kick off the process
+    if (!prompt.trim()) return;
+    setStatus('pending');
     setError(null);
     setResult(null);
 
@@ -84,7 +99,23 @@ function App() {
       setError(err.message);
     }
   };
- 
+
+  const handleCopy = (text: string, index: number) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        setCopiedIndex(index);
+        setTimeout(() => setCopiedIndex(null), 2000);
+    } catch (err) {
+        console.error('Failed to copy: ', err);
+    }
+    document.body.removeChild(textArea);
+  };
+
   const isLoading = status === 'pending' || status === 'processing';
 
   return (
@@ -96,6 +127,11 @@ function App() {
           <p className="text-gray-600">
             Enter a natural language description of the 3D model you want to create.
           </p>
+          {supportedLibraries.length > 0 && (
+            <p className="text-sm text-gray-500 mt-2">
+              Supported libraries: {supportedLibraries.join(', ')}
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -104,11 +140,27 @@ function App() {
             {/* Chat History */}
             <div className="bg-white border border-gray-200 rounded-lg p-4 mb-2 max-h-60 overflow-y-auto shadow-sm">
               {promptHistory.length === 0 ? (
-                <p className="text-gray-400"></p>
+                <p className="text-gray-400 text-center">Your prompt history will appear here.</p>
               ) : (
                 <ul className="space-y-2">
                   {promptHistory.map((p, idx) => (
-                    <li key={idx} className="bg-gray-100 rounded px-3 py-2 text-gray-800">{p}</li>
+                    <li key={idx} className="flex items-center justify-between bg-gray-100 rounded px-3 py-2 text-gray-800 text-sm">
+                      <span className="flex-grow mr-3 break-all">{p}</span>
+                      <button
+                        onClick={() => handleCopy(p, idx)}
+                        title="Copy prompt"
+                        className={`flex-shrink-0 text-gray-600 hover:text-gray-900 font-semibold py-1 px-2 rounded transition flex items-center gap-1 ${copiedIndex === idx ? 'text-green-600' : ''}`}
+                      >
+                        {copiedIndex === idx ? (
+                          <>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Copied!
+                          </>
+                        ) : (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        )}
+                      </button>
+                    </li>
                   ))}
                 </ul>
               )}
@@ -117,14 +169,14 @@ function App() {
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="e.g., a cube 20x20x20 with a 5mm hole through the center"
+                placeholder="e.g., a spur gear with 20 teeth, module 1.5, and width 10mm"
                 rows={4}
                 disabled={isLoading}
                 className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:bg-gray-100 transition"
               />
               <button 
                 type="submit" 
-                disabled={isLoading} 
+                disabled={isLoading || !prompt.trim()} 
                 className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
               >
                 {isLoading ? `Processing... (${status})` : 'Generate CAD'}
@@ -160,7 +212,7 @@ function App() {
                     </a>
                   </div>
                   
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center pt-2">
                     <button
                       onClick={() => setShowViewer(!showViewer)}
                       className="text-green-700 hover:text-green-800 font-medium underline"
@@ -173,12 +225,11 @@ function App() {
             )}
           </div>
 
-          {/* Right Column - 3D Viewer */}
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center min-h-[400px]">
             {status === 'complete' && result && showViewer ? (
               <div className="w-full">
                 <h3 className="text-lg font-semibold text-gray-800 mb-3 text-center">3D Preview</h3>
-                <div className="flex justify-center">
+                <div className="bg-white rounded-lg overflow-hidden border border-gray-300 shadow-sm">
                   <STLViewer 
                     url={result.stl} 
                   />
@@ -200,10 +251,8 @@ function App() {
               </div>
             ) : isLoading ? (
               <div className="w-full max-w-md p-8 border-2 border-dashed border-gray-300 rounded-lg text-center text-gray-500">
-                <div className="animate-spin mx-auto h-12 w-12 mb-4">
-                  <svg className="h-full w-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
+                <div className="animate-spin mx-auto h-12 w-12 mb-4 text-blue-600">
+                  <svg className="h-full w-full" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 18V22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M4.92999 4.92999L7.75999 7.75999" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M16.24 16.24L19.07 19.07" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M18 12H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M4.92999 19.07L7.75999 16.24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M16.24 7.75999L19.07 4.92999" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </div>
                 <p>Generating your 3D model...</p>
                 <p className="text-xs mt-1">Status: {status}</p>
