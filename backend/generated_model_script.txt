@@ -1,4 +1,3 @@
-from cq_gears import SpurGear
-gear = SpurGear(module=2.8, teeth_number=42, width=26.0, pressure_angle=17.5)
+from cq_warehouse.bearing import SingleRowCappedDeepGrooveBallBearing
 
-result = gear.build()
+result = SingleRowCappedDeepGrooveBallBearing(size="M8-16-6", bearing_type="SKT")

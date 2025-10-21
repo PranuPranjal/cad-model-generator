@@ -31,6 +31,8 @@ generation_status = {
     "error": None,
     "stl_filename": None,
     "step_filename": None,
+    "parsed_reply": None,
+    "model_properties": None,
     "last_generated": None,
 }
 status_lock = threading.Lock()
@@ -129,6 +131,70 @@ def execute_generated_code():
         with status_lock:
             generation_status["error"] = str(e)
             generation_status["in_progress"] = False
+
+
+def parse_model_from_code(code: str):
+    """Parse the first model instantiation from the generated code.
+
+    Returns a tuple (parsed_reply_str, properties_dict).
+    Example: code contains "SpurGear(module=2.8, teeth_number=42, width=26.0)"
+    -> ("SpurGear(module=2.8, teeth_number=42, width=26.0)", {"module":2.8, "teeth_number":42, ...})
+    """
+    if not code:
+        return None, None
+
+    # Find the first occurrence of Something(...)
+    match = re.search(r'([A-Za-z_][A-Za-z0-9_]*)\s*\(([^)]*)\)', code)
+    if not match:
+        return None, None
+
+    parsed_reply = match.group(0).strip()
+    args_str = match.group(2).strip()
+    if not args_str:
+        return parsed_reply, {}
+
+    props = {}
+    # Split on commas that are not inside parentheses (very small, naive parser)
+    parts = re.split(r',\s*(?![^()]*\))', args_str)
+    positional_index = 0
+    for part in parts:
+        part = part.strip()
+        if not part:
+            continue
+        if '=' in part:
+            key, val = part.split('=', 1)
+            key = key.strip()
+            val = val.strip()
+            # strip quotes for string values
+            if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
+                props[key] = val[1:-1]
+            else:
+                # try to coerce to int/float
+                try:
+                    if '.' in val:
+                        props[key] = float(val)
+                    else:
+                        props[key] = int(val)
+                except Exception:
+                    # fallback to raw string
+                    props[key] = val
+        else:
+            # positional argument -> store as arg0, arg1, ...
+            key = f"arg{positional_index}"
+            positional_index += 1
+            v = part
+            if (v.startswith('"') and v.endswith('"')) or (v.startswith("'") and v.endswith("'")):
+                props[key] = v[1:-1]
+            else:
+                try:
+                    if '.' in v:
+                        props[key] = float(v)
+                    else:
+                        props[key] = int(v)
+                except Exception:
+                    props[key] = v
+
+    return parsed_reply, props
 
 
 class OllamaClient:
@@ -239,6 +305,12 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
         with open(GENERATED_MODEL_FILE, "w") as f:
             f.write(cleaned_code)
 
+        # Parse the cleaned code to extract a simple textual reply and properties
+        parsed_reply, properties = parse_model_from_code(cleaned_code)
+        with status_lock:
+            generation_status["parsed_reply"] = parsed_reply
+            generation_status["model_properties"] = properties
+
         background_tasks.add_task(execute_generated_code)
 
         return JSONResponse({
@@ -271,6 +343,8 @@ async def get_generation_status():
         "error_message": status["error"],
         "stl_filename": status.get("stl_filename"),
         "step_filename": status.get("step_filename"),
+        "parsed_reply": status.get("parsed_reply"),
+        "model_properties": status.get("model_properties"),
     }
 
 

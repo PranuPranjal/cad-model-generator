@@ -29,7 +29,7 @@ export default function STLViewer({ url }: { url: string }) {
   // Gridlines are shown using the Grid component from drei
 
   return (
-    <div style={{ position: 'relative', width: '800px', height: '600px' }}>
+    <div style={{ position: 'relative', width: '900px', height: '600px' }}>
       <Canvas 
         style={{ width: '100%', height: '100%', backgroundColor: '#43a9e8', borderRadius: '10px' }}
         camera={{ position: [0, 0, 100], fov: 50 }}>
