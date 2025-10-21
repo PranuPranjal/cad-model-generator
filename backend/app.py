@@ -22,6 +22,10 @@ app.add_middleware(
 )
 
 GENERATED_MODEL_FILE = "generated_model_script.txt"
+CAD_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "CAD")
+
+# Ensure CAD directory exists
+os.makedirs(CAD_DIR, exist_ok=True)
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL_NAME = "ask-cad"
@@ -94,7 +98,7 @@ def execute_generated_code():
         exec_globals = {"cq": cq, "__builtins__": __builtins__}
 
         try:
-            # Import modules to make them available in the exec scope
+            # Import modules to make them available in the exec scope if installed
             import cq_gears
             import cq_warehouse
             exec_globals["cq_gears"] = cq_gears
@@ -118,8 +122,11 @@ def execute_generated_code():
         stl_filename = get_unique_filename("stl")
         step_filename = get_unique_filename("step")
 
-        exporters.export(cad_object, stl_filename)
-        exporters.export(cad_object, step_filename)
+        stl_path = os.path.join(CAD_DIR, stl_filename)
+        step_path = os.path.join(CAD_DIR, step_filename)
+
+        exporters.export(cad_object, stl_path)
+        exporters.export(cad_object, step_path)
 
         with status_lock:
             generation_status["last_generated"] = time.time()
@@ -351,7 +358,7 @@ async def get_generation_status():
 @app.get("/output.stl")
 async def get_stl(filename: str = Query(...)):
     """Serves the generated STL file."""
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+    file_path = os.path.join(CAD_DIR, filename)
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail=f"STL file not found: {filename}")
     return FileResponse(file_path, media_type='model/stl', filename=os.path.basename(filename))
@@ -360,7 +367,7 @@ async def get_stl(filename: str = Query(...)):
 @app.get("/output.step")
 async def get_step(filename: str = Query(...)):
     """Serves the generated STEP file."""
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+    file_path = os.path.join(CAD_DIR, filename)
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail=f"STEP file not found: {filename}")
     return FileResponse(file_path, media_type='application/step', filename=os.path.basename(filename))
