@@ -1,5 +1,6 @@
-from cq_warehouse import fastener
 from cadquery import exporters
-result = fastener.ButtonHeadScrew(size="M3-0.5", length=3, fastener_type="iso7380_1", hand="right", simple=True)
+import cadquery as cq
+from cq_warehouse.fastener import HexHeadWithFlangeScrew
+result = HexHeadWithFlangeScrew(size="M5-0.8", length=3, fastener_type="din1662", hand="left", simple=True)
 exporters.export(result, "screw.stl")
 exporters.export(result, "screw.step")

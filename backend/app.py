@@ -24,7 +24,7 @@ app.add_middleware(
 GENERATED_MODEL_FILE = "generated_model_script.txt"
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "llama-cad:latest"
+MODEL_NAME = "ask-cad"
 
 generation_status = {
     "in_progress": False,
@@ -207,11 +207,11 @@ async def generate(request: GenerateRequest, background_tasks: BackgroundTasks):
             "User: Create a buttonhead screw M5-0.8 length 20mm type iso7380_1\n"
             "Your Output:\n"
             "from cq_warehouse.fastener import ButtonHeadScrew\n"
-            "result = ButtonHeadScrew(size=\"M5-0.8\", length=20, fastener_type=\"iso7380_1\", simple=False)\n\n"
+            "result = ButtonHeadScrew(size=\"M5-0.8\", length=20, fastener_type=\"iso7380_1\")\n\n"
             "User: Create a single row capped deep groove ball bearing size M3-10-4 type SKT\n"
             "Your Output:\n"
             "from cq_warehouse.bearing import SingleRowCappedDeepGrooveBallBearing\n"
-            "result = SingleRowCappedDeepGrooveBallBearing(size=\"M3-10-4\", bearing_type=\"SKT\", simple=True)\n\n"
+            "result = SingleRowCappedDeepGrooveBallBearing(size=\"M3-10-4\", bearing_type=\"SKT\")\n\n"
             "User: Create a box with length 100, width 50, and height 30\n"
             "Your Output:\n"
             "import cadquery as cq\n"
