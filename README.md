@@ -55,7 +55,7 @@ pip install "git+https://github.com/meadiode/cq_gears.git" "git+https://github.c
 This project expects an Ollama server running locally at `http://localhost:11434`. The app is configured to use the Hugging Face model `hf.co/Pranu999/cad-gen:Q4_K_M`. Start Ollama with that model, for example:
 
 ```powershell
-ollama run hf.co/Pranu999/cad-gen:Q4_K_M
+ollama run hf.co/Pranu999/newcad:Q4_K_M
 ```
 
 If you use a different model or host/port, update `MODEL_NAME` and `OLLAMA_URL` in `backend/app.py`.

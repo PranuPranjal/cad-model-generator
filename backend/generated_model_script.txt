@@ -1,3 +1,3 @@
-from cq_warehouse.bearing import SingleRowCappedDeepGrooveBallBearing
+from cq_warehouse.fastener import HexHeadWithFlangeScrew
 
-result = SingleRowCappedDeepGrooveBallBearing(size="M8-16-6", bearing_type="SKT")
+result = HexHeadWithFlangeScrew(size="M5-0.8", length=10, fastener_type="din1662", hand="right")

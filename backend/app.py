@@ -28,7 +28,7 @@ CAD_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "CAD")
 os.makedirs(CAD_DIR, exist_ok=True)
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "ask-cad"
+MODEL_NAME = "hf.co/Pranu999/newcad:Q4_K_M"
 
 generation_status = {
     "in_progress": False,

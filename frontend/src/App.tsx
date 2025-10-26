@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import STLViewer from './components/STLViewer';
 
 // type for successful API response
@@ -12,7 +12,7 @@ interface GenerationResult {
 type GenerationStatus = 'idle' | 'pending' | 'processing' | 'complete' | 'error';
 
 function App() {
-  const [prompt, setPrompt] = useState<string>('generate cadquery script for a sphere with a diameter of 40mm at the origin');
+  const [prompt, setPrompt] = useState<string>('');
   interface ChatMessage { role: 'user' | 'assistant'; text: string }
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [result, setResult] = useState<GenerationResult | null>(null);
@@ -22,6 +22,20 @@ function App() {
   const [showViewer, setShowViewer] = useState<boolean>(true);
   const [supportedLibraries, setSupportedLibraries] = useState<string[]>([]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const samplePrompts: string[] = [
+    'Create a cylinder of height 100mm and radius 30mm',
+    'Create a hex flange nut of size M12-1.75 type din1665',
+    'Create a single row capped deep groove ball bearing of size M4-9-4 type SKT',
+    'Create a hexheadwithflange screw of size M5-0.8 length 4mm type din1662',
+  ];
+
+  const fillSamplePrompt = (p: string) => {
+    setPrompt(p);
+    // focus the textarea after state updates
+    setTimeout(() => textareaRef.current?.focus(), 10);
+  };
   
 
   useEffect(() => {
@@ -83,16 +97,21 @@ function App() {
           }, 50);
           clearInterval(intervalId);
         } else if (data.status === 'error') {
+          const msg = data.error_message || 'An unknown error occurred during generation.';
           setStatus('error');
-          setError(data.error_message || 'An unknown error occurred during generation.');
+          setError(msg);
+          // Also show the error as an assistant message in the chat history
+          setMessages((prev) => [...prev, { role: 'assistant', text: `Error: ${msg}` }]);
           clearInterval(intervalId);
         } else {
           // Keep polling if status is 'pending' or 'processing'
           setStatus(data.status);
         }
       } catch (err) {
+        const msg = 'Failed to get generation status.';
         setStatus('error');
-        setError('Failed to get generation status.');
+        setError(msg);
+        setMessages((prev) => [...prev, { role: 'assistant', text: `Error: ${msg}` }]);
         clearInterval(intervalId);
       }
     }, 2000);
@@ -134,8 +153,11 @@ function App() {
       }
       // The polling `useEffect` will take over from here
     } catch (err: any) {
+      const msg = err?.message || 'An unknown error occurred while starting generation.';
       setStatus('error');
-      setError(err.message);
+      setError(msg);
+      // Also show the error in the chat
+      setMessages((prev) => [...prev, { role: 'assistant', text: `Error: ${msg}` }]);
     }
   };
 
@@ -205,7 +227,24 @@ function App() {
             {/* Chat History */}
             <div className="bg-white border border-gray-200 rounded-lg p-4 mb-1 overflow-y-auto shadow-sm flex-1 max-h-[calc(90vh-260px)]">
               {messages.length === 0 ? (
-                <p className="text-gray-400 text-center">No messages yet — enter a prompt to start.</p>
+                prompt.trim() === '' ? (
+                  <div className="flex flex-col items-center gap-3">
+                    <p className="text-gray-500 text-center">Try one of these sample prompts:</p>
+                    <div className="flex flex-wrap justify-center gap-2 mt-2">
+                      {samplePrompts.map((p, i) => (
+                        <button
+                          key={i}
+                          onClick={() => fillSamplePrompt(p)}
+                          className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm text-gray-700 border"
+                        >
+                          {p}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-gray-400 text-center">No messages yet — enter a prompt to start.</p>
+                )
               ) : (
                 <div className="space-y-3 px-1">
                   {messages.map((m, idx) => (
@@ -238,6 +277,7 @@ function App() {
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <textarea
+                ref={textareaRef}
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="e.g., a spur gear with 20 teeth, module 1.5, and width 10mm"
