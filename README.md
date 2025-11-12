@@ -1,125 +1,283 @@
-# CAD Model Generator
+\# 🧩 CAD Model Generator
 
-A small prototype web app that uses a local LLM (via Ollama) to generate CadQuery scripts and export 3D models (STL and STEP). The backend runs a FastAPI service that asks the LLM to produce a CadQuery script, executes the generated script in a controlled background task, and exports the results. The frontend is a Vite + React app that can send prompts and view generated STL files.
+A small prototype **web app** that uses a **local LLM (via Ollama)** to generate **CadQuery scripts** and export **3D models (STL and STEP)**.
 
-## Features
+The backend runs a **FastAPI** service that asks the LLM to produce a CadQuery script, executes it in a controlled background task, and exports the results.  
+The frontend is a **Vite + React** app that can send prompts and view generated STL files.
 
-- Ask an LLM to generate a CadQuery script from a natural-language prompt.
-- Background execution of generated CadQuery code to produce STL and STEP files.
-- Simple REST API to request generation, check status, and download outputs.
-- Minimal React frontend (Vite) to submit prompts and preview STL files.
+---
 
-## Repository Structure
+## ✨ Features
 
-### Backend
+- 🧠 Ask an LLM to generate a **CadQuery script** from a natural-language prompt.  
+- ⚙️ Background execution of generated CadQuery code to produce **STL** and **STEP** files.  
+- 🔗 Simple **REST API** to request generation, check status, and download outputs.  
+- 💻 Minimal **React (Vite)** frontend to submit prompts and preview STL models.  
+- 🧶 *(Optional)* Generate **G-code** from STL files using a detected local slicer (PrusaSlicer or CuraEngine).
 
-- **FastAPI backend, CadQuery execution and exported model files.**
-  - `app.py`: FastAPI application; endpoints: `/api/generate`, `/api/generation-status`, `/output.stl`, `/output.step`.
-  - `requirements.txt`: Python package requirements used by the project.
-  - `generated_model_script.txt`: (runtime) the last model script produced by the LLM.
-  - `output_*.stl` / `output_*.step`: example/generated model files produced by the app.
+---
 
-### Frontend
+## 🗂️ Repository Structure
 
-- **Vite + React frontend that communicates with the backend and displays STL models.**
+### **Backend**
 
-## Quick Start (Windows / PowerShell)
+Handles:
+- FastAPI app  
+- CadQuery execution  
+- Model export (STL/STEP)  
+- Optional G-code generation
 
-The commands below assume you have Python and Node.js installed on your system. Adjust commands for your environment if needed.
+```
 
-### Backend - Create a Conda Environment and Install Dependencies
+backend/
+├── app.py                  # FastAPI application
+├── requirements.txt        # Python dependencies
+├── generated_model_script.txt  # (runtime) last model script from LLM
+├── output_*.stl / .step    # Generated model files
 
-This project is best run using a Conda environment to handle CadQuery's complex dependencies.
+```
 
-```powershell
-# Navigate to the backend directory
+### **Frontend**
+
+A **Vite + React** app that communicates with the backend and displays STL models.
+
+```
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── App.jsx
+├── package.json
+└── vite.config.js
+
+````
+
+---
+
+## ⚡ Quick Start (Windows / PowerShell)
+
+> These commands assume you have **Python** and **Node.js** installed.  
+> Adjust as needed for your system.
+
+---
+
+### 🐍 1. Backend Setup (with Conda)
+
+**1. Navigate to backend folder:**
+```bash
 cd .\backend
+````
 
-# 1. Create a new Conda environment (e.g., named "cad_api")
+**2. Create a Conda environment:**
+
+```bash
 conda create -n cad_api python=3.10
+```
 
-# 2. Activate the new environment
+**3. Activate it:**
+
+```bash
 conda activate cad_api
+```
 
-# 3. Install the core Python packages from requirements.txt
+**4. Install core dependencies:**
+
+```bash
 pip install -r requirements.txt
+```
 
-# 4. Install the required CadQuery extension libraries (cq_gears and cq_warehouse)
+**5. Install CadQuery extension libraries:**
+
+```bash
 pip install "git+https://github.com/meadiode/cq_gears.git" "git+https://github.com/gumyr/cq_warehouse.git"
 ```
 
-**Note:** CadQuery and its extensions are pre-installed in this environment. The `app.py` server assumes these libraries (`cadquery`, `cq_gears`, `cq_warehouse`) are available in the environment and does not install them at runtime.
+> 📝 Note: CadQuery and its extensions are expected to be available in this environment.
 
-### Run Ollama (Required)
+---
 
-This project expects an Ollama server running locally at `http://localhost:11434`. The app is configured to use the Hugging Face model `hf.co/Pranu999/cad-gen:Q4_K_M`. Start Ollama with that model, for example:
+### 🧠 2. Run Ollama (Required)
 
-```powershell
-ollama run hf.co/Pranu999/newcad:Q4_K_M
+Ensure **Ollama** is running locally at:
+**[http://localhost:11434](http://localhost:11434)**
+
+Start Ollama with the required model:
+
+```bash
+ollama run llama-cad:latest
 ```
 
-If you use a different model or host/port, update `MODEL_NAME` and `OLLAMA_URL` in `backend/app.py`.
+If you use a different model or host, update `MODEL_NAME` and `OLLAMA_URL` in **backend/app.py**.
 
-### Start the Backend
+---
 
-```powershell
-# From backend folder, with the virtualenv activated
+### 🧰 3. Install a Slicer (Optional, for G-code)
+
+To generate **G-code**, install a compatible slicer like **PrusaSlicer**.
+
+* 📥 Download: [PrusaSlicer](https://www.prusa3d.com/page/prusaslicer_424/)
+* 🧭 Default Install Path:
+  `C:\Program Files\Prusa3D\PrusaSlicer`
+
+If installed elsewhere, add the folder containing `prusa-slicer-console.exe` to your **PATH** environment variable.
+
+If no slicer is detected, the backend uses a basic fallback generator (not suitable for printing).
+
+---
+
+### 🚀 4. Start the Backend
+
+From the backend folder:
+
+```bash
+source .venv/Scripts/activate
 python app.py
 ```
 
-The backend runs Uvicorn at `http://0.0.0.0:5000` by default (see `app.py`).
+> The backend runs at **[http://0.0.0.0:5000](http://0.0.0.0:5000)** by default.
 
-### Frontend - Install and Run
+---
 
-```powershell
+### 💻 5. Frontend Setup
+
+Open a new terminal and run:
+
+```bash
 cd ..\frontend
 npm install
 npm run dev
 ```
 
-The Vite dev server will show the frontend UI (by default at `http://localhost:5173`). The frontend can POST prompts to the backend and preview generated STLs.
+The frontend runs at:
+👉 **[http://localhost:5173](http://localhost:5173)**
 
-## API / Usage
+---
 
-### POST `/api/generate`
+## 🔌 API / Usage
 
-- **Body:** JSON `{ "prompt": "describe the model you want" }`
-- **Response:** Acknowledges generation started. Backend writes the returned CadQuery script to `generated_model_script.txt` and runs it in a background task to export files.
+### **POST /api/generate**
 
-### GET `/api/generation-status`
+**Body:**
 
-- Returns JSON with status (`pending`/`processing`/`complete`/`error`), optional `error_message`, and filenames (`stl_filename`, `step_filename`) when available.
+```json
+{ "prompt": "describe the model you want" }
+```
 
-### GET `/output.stl?filename=<name>`
+**Response:** Acknowledges generation started.
 
-- Download/serve the generated STL file (use the exact filename returned by `/api/generation-status`).
+Backend writes the CadQuery script to `generated_model_script.txt` and runs it in a background task.
 
-### GET `/output.step?filename=<name>`
+---
 
-- Download/serve the generated STEP file.
+### **GET /api/generation-status**
 
-## Example Flow
+Returns:
 
-1. POST a prompt to `/api/generate`.
-2. Poll `/api/generation-status` until status becomes `complete` and note the `stl_filename`.
-3. Download the file with `/output.stl?filename=<stl_filename>`.
+```json
+{
+  "status": "complete",
+  "stl_filename": "output_12345.stl",
+  "step_filename": "output_12345.step",
+  "error_message": null
+}
+```
 
-## Notes and Important Implementation Details
+---
 
-- The backend intentionally writes the LLM-produced CadQuery script to `generated_model_script.txt` (a `.txt` file) instead of a `.py` file. This avoids triggering Uvicorn's auto-reload when the file is updated, which would otherwise interrupt the background task that runs the script.
-- The executed script must expose a CadQuery object named exactly `result` (for example: `result = cq.Workplane("XY").box(10, 10, 10)`). The backend only executes the script and expects `result` to be either a `cq.Workplane` or a `cq.Shape`.
-- The backend exports both an STL and a STEP file for each successful generation and saves them in the `backend/` folder with names like `output_<timestamp>.stl` and `output_<timestamp>.step`.
+### **GET /output.stl?filename=<name>**
 
-## Troubleshooting
+Downloads the generated STL file.
 
-- **CadQuery Installation:** If `pip install cadquery` fails or the exporter fails at runtime, follow the official CadQuery installation instructions for your OS. On Windows, using a conda-based environment can simplify native dependency issues.
-- **Ollama Errors:** If the backend cannot reach Ollama, ensure the Ollama service is running locally and accessible at `http://localhost:11434`. Check that the model name configured in `app.py` (`MODEL_NAME`) matches a model you have available.
-- **Permissions / Files:** If the backend fails to write or serve output files, check that the running Python process has write permissions to the `backend/` folder.
+### **GET /output.step?filename=<name>**
 
-## Example Files
+Downloads the generated STEP file.
 
-Several exported example files are included in the `backend/` folder (`output_*.stl`, `output_*.step`). These were produced by the app during development and can be used to test the frontend viewer.
+---
 
-## License & Contact
+### **POST /api/generate-gcode**
 
-This repository is a prototype. No license file is included. For questions or contributions, open an issue or submit a pull request in the repository.
+**Body:**
+
+```json
+{
+  "filename": "output_12345.stl",
+  "layer_height": 0.2,
+  "infill_density": 20,
+  "print_speed": 60,
+  "nozzle_temp": 200,
+  "bed_temp": 60
+}
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "gcode_filename": "output_12345.gcode"
+}
+```
+
+---
+
+### **GET /api/download-gcode/{filename}**
+
+Downloads the generated G-code file.
+
+---
+
+## 🔄 Example Flow
+
+1. **POST** a prompt to `/api/generate`
+2. **Poll** `/api/generation-status` until `"status": "complete"`
+3. **Download** the STL file via `/output.stl`
+4. *(Optional)* **Generate G-code** with `/api/generate-gcode`
+5. *(Optional)* **Download G-code** via `/api/download-gcode/{filename}`
+
+---
+
+## ⚠️ Notes & Implementation Details
+
+* The backend writes the LLM-generated CadQuery code to
+  `generated_model_script.txt` (not `.py`) to avoid Uvicorn auto-reload.
+* The executed script must define:
+
+  ```python
+  result = cq.Workplane("XY").box(10, 10, 10)
+  ```
+* The backend expects `result` to be a **CadQuery Workplane or Shape**.
+* Both `.stl` and `.step` files are exported for each successful run.
+* Files are saved as `output_<timestamp>.stl` and `.step` in the backend folder.
+
+---
+
+## 🧩 Troubleshooting
+
+**CadQuery Installation:**
+If `pip install cadquery` fails, follow the [official installation guide](https://cadquery.readthedocs.io/).
+Conda simplifies native dependency setup on Windows.
+
+**Ollama Errors:**
+Ensure Ollama is running and the model name in `app.py` matches your local model.
+
+**G-code Fails / “No slicer available”:**
+
+* Check PrusaSlicer or CuraEngine installation.
+* Add their path to the system `PATH` if installed manually.
+
+**Permissions:**
+Ensure the backend can write to the `backend/` directory.
+
+---
+
+## 📁 Example Files
+
+Several exported example models are included:
+
+* `output_*.stl`
+* `output_*.step`
+
+You can use these to test the frontend STL viewer.
+
+---

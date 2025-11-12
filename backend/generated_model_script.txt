@@ -1,3 +1,3 @@
-from cq_warehouse.fastener import HexHeadWithFlangeScrew
+from cq_gears import SpurGear
 
-result = HexHeadWithFlangeScrew(size="M5-0.8", length=10, fastener_type="din1662", hand="right")
+result = SpurGear(module=1.0, teeth_number=20, width=12.0, simple=True)
