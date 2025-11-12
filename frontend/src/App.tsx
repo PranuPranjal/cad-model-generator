@@ -5,11 +5,21 @@ import STLViewer from './components/STLViewer';
 interface GenerationResult {
   step: string;
   stl: string;
+  gcode?: string;
 }
 
 
 // states for the generation process
 type GenerationStatus = 'idle' | 'pending' | 'processing' | 'complete' | 'error';
+type GCodeStatus = 'idle' | 'processing' | 'complete' | 'error';
+
+interface GCodeSettings {
+  layer_height: number;
+  infill_density: number;
+  print_speed: number;
+  nozzle_temp: number;
+  bed_temp: number;
+}
 
 function App() {
   const [prompt, setPrompt] = useState<string>('');
@@ -23,6 +33,18 @@ function App() {
   const [supportedLibraries, setSupportedLibraries] = useState<string[]>([]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const [showGCodePanel, setShowGCodePanel] = useState<boolean>(false);
+  const [gcodeSettings, setGcodeSettings] = useState<GCodeSettings>({
+    layer_height: 0.2,
+    infill_density: 20,
+    print_speed: 60,
+    nozzle_temp: 200,
+    bed_temp: 60,
+  });
+  const [gcodeStatus, setGcodeStatus] = useState<GCodeStatus>('idle');
+  const [gcodeFile, setGcodeFile] = useState<string | null>(null);
+
 
   const samplePrompts: string[] = [
     'Create a cylinder of height 100mm and radius 30mm',
@@ -177,6 +199,37 @@ function App() {
     document.body.removeChild(textArea);
   };
 
+  const handleGenerateGCode = async () => {
+    if (!result?.stl) return;
+    setGcodeStatus('processing');
+    setError(null);
+
+    const filename = new URL(result.stl, window.location.origin).searchParams.get(
+      'filename'
+    );
+
+    try {
+      const response = await fetch('/api/generate-gcode', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename, ...gcodeSettings }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.detail || 'Failed to generate G-code.');
+      }
+
+      const data = await response.json();
+      setGcodeStatus('complete');
+      setGcodeFile(`/api/download-gcode/${data.filename}`);
+    } catch (err: any) {
+      console.error('G-code generation failed:', err);
+      setGcodeStatus('error');
+      setError(err.message);
+    }
+  };
+
   const isLoading = status === 'pending' || status === 'processing';
 
   return (
@@ -204,6 +257,128 @@ function App() {
             </a>
             <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 rounded bg-gray-800 text-white text-xs py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">STL</span>
           </div>
+          <div className="pt-3">
+                    {!showGCodePanel ? (
+                      <button
+                        onClick={() => setShowGCodePanel(true)}
+                        className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-600 transition"
+                      >
+                        G-code Settings
+                      </button>
+                    ) : (
+                      <div className="bg-white p-4 rounded-lg border border-yellow-400 shadow-sm mt-3">
+                        <h4 className="text-lg font-semibold text-yellow-700 mb-2">
+                          G-code Settings
+                        </h4>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <label>
+                            Layer Height (mm)
+                            <input
+                              type="number"
+                              step="0.05"
+                              value={gcodeSettings.layer_height}
+                              onChange={(e) =>
+                                setGcodeSettings({
+                                  ...gcodeSettings,
+                                  layer_height: parseFloat(e.target.value),
+                                })
+                              }
+                              className="w-full border border-gray-300 rounded p-1"
+                            />
+                          </label>
+                          <label>
+                            Infill (%)
+                            <input
+                              type="number"
+                              value={gcodeSettings.infill_density}
+                              onChange={(e) =>
+                                setGcodeSettings({
+                                  ...gcodeSettings,
+                                  infill_density: parseInt(e.target.value),
+                                })
+                              }
+                              className="w-full border border-gray-300 rounded p-1"
+                            />
+                          </label>
+                          <label>
+                            Speed (mm/s)
+                            <input
+                              type="number"
+                              value={gcodeSettings.print_speed}
+                              onChange={(e) =>
+                                setGcodeSettings({
+                                  ...gcodeSettings,
+                                  print_speed: parseInt(e.target.value),
+                                })
+                              }
+                              className="w-full border border-gray-300 rounded p-1"
+                            />
+                          </label>
+                          <label>
+                            Nozzle Temp (°C)
+                            <input
+                              type="number"
+                              value={gcodeSettings.nozzle_temp}
+                              onChange={(e) =>
+                                setGcodeSettings({
+                                  ...gcodeSettings,
+                                  nozzle_temp: parseInt(e.target.value),
+                                })
+                              }
+                              className="w-full border border-gray-300 rounded p-1"
+                            />
+                          </label>
+                          <label>
+                            Bed Temp (°C)
+                            <input
+                              type="number"
+                              value={gcodeSettings.bed_temp}
+                              onChange={(e) =>
+                                setGcodeSettings({
+                                  ...gcodeSettings,
+                                  bed_temp: parseInt(e.target.value),
+                                })
+                              }
+                              className="w-full border border-gray-300 rounded p-1"
+                            />
+                          </label>
+                        </div>
+                        <div className="mt-4 flex gap-2">
+                          <button
+                            onClick={handleGenerateGCode}
+                            disabled={gcodeStatus === 'processing'}
+                            className="flex-1 bg-yellow-600 text-white py-2 px-3 rounded font-semibold hover:bg-yellow-700 transition"
+                          >
+                            {gcodeStatus === 'processing'
+                              ? 'Generating...'
+                              : 'Generate G-code'}
+                          </button>
+                          <button
+                            onClick={() => setShowGCodePanel(false)}
+                            className="flex-1 bg-gray-300 text-gray-700 py-2 px-3 rounded font-semibold hover:bg-gray-400 transition"
+                          >
+                            Close
+                          </button>
+                        </div>
+                        {gcodeStatus === 'complete' && gcodeFile && (
+                          <div className="mt-3 text-center">
+                            <a
+                              href={gcodeFile}
+                              download
+                              className="text-yellow-700 font-semibold underline"
+                            >
+                              Download G-code File
+                            </a>
+                          </div>
+                        )}
+                        {gcodeStatus === 'error' && (
+                          <p className="text-red-600 mt-2 text-sm text-center">
+                            G-code generation failed.
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
         </div>
       )}
   <div className="p-3 pl-2 flex flex-col flex-1 h-screen w-full">
@@ -299,8 +474,6 @@ function App() {
                 <strong>Error:</strong> {error}
               </div>
             )}
-
-            {/* Generation Complete panel removed — download icons are moved to the app top-right */}
           </div>
 
           <div className="flex flex-col items-stretch justify-center min-h-[300px]">
